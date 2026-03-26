@@ -3,5 +3,6 @@
         "forward_list": "c",
         "ostream": "c",
         "swe.h": "c"
-    }
+    },
+    "git.ignoreLimitWarning": true
 }

@@ -77,14 +77,51 @@ export default {
     this.$bus.$off('AutoHistogramNum', this.setAutoHistogramNum);
   },
   methods: {
+    getStageMetrics() {
+      const stageEl = this.$el && this.$el.parentElement ? this.$el.parentElement : null
+      const logicalWidth = stageEl && stageEl.offsetWidth ? stageEl.offsetWidth : Math.max(window.innerWidth || 0, 320)
+      const visibleWidth = stageEl && stageEl.getBoundingClientRect
+        ? stageEl.getBoundingClientRect().width
+        : Math.max(window.innerWidth || 0, 320)
+      const scale = logicalWidth > 0 ? (visibleWidth / logicalWidth) : 1
+      return {
+        logicalWidth: Math.max(logicalWidth, 320),
+        visibleWidth: Math.max(visibleWidth, 320),
+        scale: scale > 0 ? scale : 1
+      }
+    },
+    getViewportWidth() {
+      const visualWidth = window.visualViewport && window.visualViewport.width
+        ? window.visualViewport.width
+        : 0
+      const innerWidth = window.innerWidth || 0
+      const width = visualWidth > 0 ? Math.min(innerWidth || visualWidth, visualWidth) : innerWidth
+      return Math.max(width, 320)
+    },
+    isTouchMobileViewport(screenWidth) {
+      const ua = navigator.userAgent || ''
+      const touch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0)
+      const mobileLike = /Android|iPhone|iPad|iPod|Mobile|Tablet/i.test(ua)
+      return !!touch && (mobileLike || screenWidth <= 900)
+    },
     updatePosition() {
-      const screenWidth = window.innerWidth;
-      const halfWidth = screenWidth / 2 - 250;
-      this.ComponentPadding = Math.max(halfWidth, 170);
+      const screenWidth = this.getViewportWidth();
+      const { logicalWidth, visibleWidth, scale } = this.getStageMetrics()
+      if (this.isTouchMobileViewport(screenWidth)) {
+        const desiredVisibleWidth = Math.min(Math.max(Math.floor(visibleWidth * 0.36), 200), visibleWidth - 210)
+        const logicalTargetWidth = Math.max(220, Math.round(desiredVisibleWidth / scale))
+        this.ComponentPadding = Math.max(Math.round((logicalWidth - logicalTargetWidth) / 2), 18)
+      } else if (screenWidth <= 1024) {
+        const widthRatio = screenWidth <= 640 ? 0.78 : 0.76;
+        const targetWidth = Math.max(220, Math.floor(screenWidth * widthRatio));
+        this.ComponentPadding = Math.max(Math.round((screenWidth - targetWidth) / 2), 12);
+      } else {
+        const halfWidth = screenWidth / 2 - 250;
+        this.ComponentPadding = Math.max(halfWidth, 170);
+      }
 
-      // 计算宽度
-      const newWidth = screenWidth - (this.ComponentPadding * 2);
-      // console.log('Update new width:', newWidth);
+      const widthBase = this.isTouchMobileViewport(screenWidth) ? logicalWidth : screenWidth
+      const newWidth = Math.max(220, widthBase - (this.ComponentPadding * 2));
       this.$bus.$emit('updateHistogramWidth', newWidth);
     },
     AutoHistogram() {
@@ -184,6 +221,20 @@ export default {
   top: -35px;
   left: 25%;
   right: 25%;
+}
+
+@media (max-width: 1024px) {
+  .buttons-container {
+    left: 16%;
+    right: 16%;
+  }
+}
+
+@media (max-width: 640px) {
+  .buttons-container {
+    left: 10%;
+    right: 10%;
+  }
 }
 
 .btn-Auto {

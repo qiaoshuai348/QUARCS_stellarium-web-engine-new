@@ -5,51 +5,74 @@
       <span class="control-tag control-tag--panel">R-Panel</span>
       <section class="wing-hero">
         <span class="control-tag control-tag--section">R-Hero</span>
-        <p class="wing-eyebrow wing-eyebrow--right">Shoot</p>
-        <div class="hero-orb" :style="heroOrbStyle">
+        <p class="wing-eyebrow wing-eyebrow--right">{{ heroEyebrow }}</p>
+        <button class="hero-orb hero-orb--button" :style="heroOrbStyle" type="button" @click="$emit('hero-action')">
           <span class="control-tag control-tag--orb">R-HeroOrb</span>
           <div class="hero-orb__inner"></div>
-        </div>
+        </button>
         <div class="hero-caption">
           <span class="control-tag control-tag--caption">R-HeroText</span>
-          <span>Astro Cam</span>
+          <span>{{ heroTitle }}</span>
         </div>
       </section>
 
       <section class="wing-center-actions">
         <button
-          v-for="(item, index) in rightActions"
-          :key="item.tag"
+          v-for="(item, index) in actionItems"
+          :key="item.id"
           class="orb-button"
           :style="rightActionButtonStyle(index)"
           type="button"
+          @click="$emit('right-action', item.id)"
         >
           <span class="control-tag control-tag--button">{{ item.tag }}</span>
-          {{ item.glyph }}
+          <span class="orb-button__content">
+            <v-icon v-if="item.icon" class="orb-button__icon">{{ item.icon }}</v-icon>
+            <span class="orb-button__text">{{ item.label }}</span>
+          </span>
         </button>
       </section>
 
-      <div class="wing-side-rail">
+      <div v-if="toolItems.length" class="wing-side-rail">
         <button
-          v-for="tool in tools"
-          :key="tool.tag"
+          v-for="tool in toolItems"
+          :key="tool.id"
           class="side-rail__button"
           type="button"
+          @click="$emit('tool-action', tool.id)"
         >
           <span class="control-tag control-tag--button">{{ tool.tag }}</span>
-          {{ tool.glyph }}
+          {{ tool.label }}
         </button>
       </div>
 
       <section class="wing-footer">
         <div class="dual-pad">
-          <button class="dual-pad__btn" :style="footerLeftButtonStyle" type="button">
-            <span class="control-tag control-tag--button">R-RA+</span>
-            RA+
+          <button
+            class="dual-pad__btn"
+            :style="footerLeftButtonStyle"
+            type="button"
+            @mousedown="$emit('footer-press', footerLeft.id)"
+            @mouseup="$emit('footer-release', footerLeft.id)"
+            @mouseleave="$emit('footer-release', footerLeft.id)"
+            @touchstart.stop.prevent="$emit('footer-press', footerLeft.id)"
+            @touchend.stop.prevent="$emit('footer-release', footerLeft.id)"
+          >
+            <span class="control-tag control-tag--button">{{ footerLeft.tag }}</span>
+            {{ footerLeft.label }}
           </button>
-          <button class="dual-pad__btn" :style="footerRightButtonStyle" type="button">
-            <span class="control-tag control-tag--button">R-DEC+</span>
-            DEC+
+          <button
+            class="dual-pad__btn"
+            :style="footerRightButtonStyle"
+            type="button"
+            @mousedown="$emit('footer-press', footerRight.id)"
+            @mouseup="$emit('footer-release', footerRight.id)"
+            @mouseleave="$emit('footer-release', footerRight.id)"
+            @touchstart.stop.prevent="$emit('footer-press', footerRight.id)"
+            @touchend.stop.prevent="$emit('footer-release', footerRight.id)"
+          >
+            <span class="control-tag control-tag--button">{{ footerRight.tag }}</span>
+            {{ footerRight.label }}
           </button>
           <button
             class="dual-pad__btn dual-pad__btn--func"
@@ -57,10 +80,10 @@
             :style="footerFuncButtonStyle"
             type="button"
             data-testid="rcw-btn-toggle-docker-chart-params"
-            @click="toggleDockerChartParams"
+            @click="handleFooterAction"
           >
-            <span class="control-tag control-tag--button">R-Docker</span>
-            D-Chart
+            <span class="control-tag control-tag--button">{{ footerAction.tag }}</span>
+            {{ footerAction.label }}
           </button>
         </div>
       </section>
@@ -91,22 +114,54 @@ const BLUR_SOURCE_IDS = ['guiderCamera-canvas', 'mainCamera-canvas', 'stel-canva
 
 export default {
   name: 'RightControlWing',
+  props: {
+    heroTitle: {
+      type: String,
+      default: 'Action'
+    },
+    heroEyebrow: {
+      type: String,
+      default: 'Control'
+    },
+    actionItems: {
+      type: Array,
+      default: () => []
+    },
+    toolItems: {
+      type: Array,
+      default: () => []
+    },
+    footerLeft: {
+      type: Object,
+      default: () => ({ id: 'mount-ra-plus', label: 'RA+', tag: 'R-RA+' })
+    },
+    footerRight: {
+      type: Object,
+      default: () => ({ id: 'mount-dec-plus', label: 'DEC+', tag: 'R-DEC+' })
+    },
+    footerAction: {
+      type: Object,
+      default: () => ({ id: 'dock-toggle', label: 'D-Chart', tag: 'R-Docker' })
+    },
+    dockExpanded: {
+      type: Boolean,
+      default: false
+    }
+  },
   data () {
     return {
       panelShapeUrl: require('@/assets/images/panel_fill_mask.svg'),
       blurTimer: null,
       dockerChartParamsOpen: false,
-      rightActions: [
-        { glyph: '◔', tag: 'R-Orb-1' },
-        { glyph: 'ISO', tag: 'R-ISO' },
-        { glyph: '◀', tag: 'R-Orb-3' }
-      ],
-      tools: [
-        { glyph: '◉', tag: 'R-Tool-1' },
-        { glyph: '↓', tag: 'R-Tool-2' },
-        { glyph: '⚙', tag: 'R-Tool-3' },
-        { glyph: '▭', tag: 'R-Tool-4' }
-      ]
+      
+    }
+  },
+  watch: {
+    dockExpanded: {
+      immediate: true,
+      handler (value) {
+        this.dockerChartParamsOpen = !!value
+      }
     }
   },
   mounted () {
@@ -152,6 +207,10 @@ export default {
     }
   },
   methods: {
+    handleFooterAction () {
+      this.dockerChartParamsOpen = !this.dockerChartParamsOpen
+      this.$emit('footer-action', this.footerAction.id)
+    },
     findActiveViewportCanvas () {
       let best = null
       let bestZ = -Infinity
@@ -218,13 +277,6 @@ export default {
         top: `${Math.round(y - 29)}px`
       }
     },
-    toggleDockerChartParams () {
-      this.dockerChartParamsOpen = !this.dockerChartParamsOpen
-      this.$bus && this.$bus.$emit('toggleDockerChartParams', {
-        source: 'right-control-wing',
-        open: this.dockerChartParamsOpen
-      })
-    },
     footerButtonStyleFromCircle (circle) {
       const scale = this.geometryScale
       const x = this.geometryOffsetX + ((circle.cx - VIEWBOX.x) * scale)
@@ -245,6 +297,7 @@ export default {
   min-height: 0;
   flex: 0 0 auto;
   position: relative;
+  pointer-events: none;
 }
 
 .control-wing__inner {
@@ -252,6 +305,7 @@ export default {
   height: 100%;
   isolation: isolate;
   padding: 0;
+  pointer-events: none;
 }
 
 .control-wing__blur-canvas {
@@ -338,6 +392,12 @@ export default {
     0 10px 22px rgba(16, 24, 40, 0.14);
 }
 
+.hero-orb--button {
+  border: 0;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
 .hero-orb__inner {
   width: 116px;
   height: 116px;
@@ -363,12 +423,16 @@ export default {
 .wing-center-actions {
   position: absolute;
   inset: 0;
+  pointer-events: none;
 }
 
 .orb-button {
   position: absolute;
   width: 58px;
   height: 58px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border: 0;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.12);
@@ -378,6 +442,24 @@ export default {
   box-shadow:
     inset 0 0 0 5px rgba(245, 249, 255, 0.8),
     0 10px 24px rgba(6, 12, 26, 0.16);
+  pointer-events: auto;
+}
+
+.orb-button__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  line-height: 1;
+}
+
+.orb-button__icon {
+  font-size: 18px !important;
+}
+
+.orb-button__text {
+  font-size: 9px;
+  letter-spacing: 0.04em;
 }
 
 .wing-side-rail {
@@ -394,6 +476,7 @@ export default {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.08),
     0 14px 30px rgba(0, 0, 0, 0.22);
+  pointer-events: none;
 }
 
 .side-rail__button {
@@ -406,6 +489,7 @@ export default {
   color: rgba(242, 246, 251, 0.9);
   font-size: 20px;
   cursor: pointer;
+  pointer-events: auto;
 }
 
 .wing-footer {
@@ -414,11 +498,13 @@ export default {
   right: 0;
   bottom: 0;
   height: 170px;
+  pointer-events: none;
 }
 
 .dual-pad {
   position: absolute;
   inset: 0;
+  pointer-events: none;
 }
 
 .dual-pad__btn {
@@ -435,6 +521,7 @@ export default {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.56),
     0 12px 22px rgba(6, 12, 26, 0.16);
+  pointer-events: auto;
 }
 
 .dual-pad__btn--func {

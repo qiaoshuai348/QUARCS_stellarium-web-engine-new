@@ -64,6 +64,16 @@ export default {
     this.$bus.$on('AddRMSErrorData', this.onBackendRms);
   },
   methods: {
+    isTouchMobileViewport() {
+      const visualWidth = window.visualViewport && window.visualViewport.width
+        ? window.visualViewport.width
+        : 0
+      const ua = navigator.userAgent || ''
+      const touch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0)
+      const mobileLike = /Android|iPhone|iPad|iPod|Mobile|Tablet/i.test(ua)
+      const width = visualWidth || window.innerWidth || 0
+      return !!touch && (mobileLike || width <= 900)
+    },
     isCompactLegend() {
       return window.innerWidth <= 768;
     },
@@ -113,7 +123,10 @@ export default {
       this.renderChart(this.xAxis_min, this.xAxis_max, this.yAxis_min, this.yAxis_max);
     },
     initChart(Width) {
-      this.containerMaxWidth = Width - 95;
+      const reserveWidth = this.isTouchMobileViewport()
+        ? Math.max(46, Math.round(Width * 0.18))
+        : 95
+      this.containerMaxWidth = Math.max(160, Width - reserveWidth);
       const chartDom = this.$refs.linechart;
       chartDom.style.width = this.containerMaxWidth + 'px';
       this.myChart = echarts.init(chartDom);

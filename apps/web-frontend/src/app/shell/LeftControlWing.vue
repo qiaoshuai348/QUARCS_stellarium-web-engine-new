@@ -1,77 +1,85 @@
 <template>
-  <aside
-    class="control-wing control-wing--left"
-    @mousemove="handlePanelPointerMove"
-    @mouseleave="clearPanelPointer"
-  >
+  <aside class="control-wing control-wing--left">
     <div ref="panelInner" class="control-wing__inner" :style="panelStyle">
       <canvas ref="blurCanvas" class="control-wing__blur-canvas" aria-hidden="true"></canvas>
       <span class="control-tag control-tag--panel">L-Panel</span>
-      <div v-if="panelPointer" class="panel-pointer-guides" aria-hidden="true">
-        <div
-          class="panel-pointer-guide panel-pointer-guide--vertical"
-          :style="{ left: `${panelPointer.localX}px` }"
-        ></div>
-        <div
-          class="panel-pointer-guide panel-pointer-guide--horizontal"
-          :style="{ top: `${panelPointer.localY}px` }"
-        ></div>
-        <div
-          class="panel-pointer-crosshair"
-          :style="{ left: `${panelPointer.localX}px`, top: `${panelPointer.localY}px` }"
-        ></div>
-      </div>
-      <div v-if="panelPointer" class="panel-pointer-readout">
-        X: {{ panelPointer.x }} / Y: {{ panelPointer.y }}
-      </div>
       <section class="wing-hero">
         <span class="control-tag control-tag--section">L-Hero</span>
-        <p class="wing-eyebrow">Mode</p>
-        <div class="hero-orb" :style="heroOrbStyle">
+        <p class="wing-eyebrow">{{ heroEyebrow }}</p>
+        <button
+          class="hero-orb hero-orb--button"
+          :style="heroOrbStyle"
+          type="button"
+          @click="$emit('hero-action')"
+        >
           <span class="control-tag control-tag--orb">L-HeroOrb</span>
           <div class="hero-orb__inner"></div>
-        </div>
+        </button>
         <div class="hero-caption">
           <span class="control-tag control-tag--caption">L-HeroText</span>
-          <span>Guiding</span>
+          <span>{{ heroTitle }}</span>
         </div>
       </section>
 
       <div class="wing-side-rail">
         <button
           v-for="item in primaryModes"
-          :key="item.glyph"
+          :key="item.id"
           class="side-rail__button"
+          :class="{ 'side-rail__button--active': item.id === activeMode }"
           type="button"
+          @click="$emit('set-mode', item.id)"
         >
           <span class="control-tag control-tag--button">{{ item.tag }}</span>
-          {{ item.glyph }}
+          {{ item.label }}
         </button>
       </div>
 
       <section class="wing-menu">
         <button
-          v-for="(item, index) in leftActions"
-          :key="item.title"
+          v-for="(item, index) in actionItems"
+          :key="item.id"
           class="menu-item"
           :style="leftActionButtonStyle(index)"
           type="button"
+          @click="$emit('left-action', item.id)"
         >
           <span class="control-tag control-tag--button">{{ item.tag }}</span>
-          <span class="menu-item__icon">{{ item.icon }}</span>
+          <span class="menu-item__icon">
+            <v-icon v-if="String(item.icon || '').startsWith('mdi-')">{{ item.icon }}</v-icon>
+            <span v-else>{{ item.icon }}</span>
+          </span>
           <span class="menu-item__text">{{ item.title }}</span>
         </button>
       </section>
 
       <section class="wing-footer">
         <div class="dual-pad">
-          <button class="dual-pad__btn" :style="footerLeftButtonStyle" type="button">
-            <span class="control-tag control-tag--button">L-RA-</span>
-            RA-
+          <button
+            class="dual-pad__btn"
+            :style="footerLeftButtonStyle"
+            type="button"
+            @mousedown="$emit('footer-press', footerLeft.id)"
+            @mouseup="$emit('footer-release', footerLeft.id)"
+            @mouseleave="$emit('footer-release', footerLeft.id)"
+            @touchstart.stop.prevent="$emit('footer-press', footerLeft.id)"
+            @touchend.stop.prevent="$emit('footer-release', footerLeft.id)"
+          >
+            <span class="control-tag control-tag--button">{{ footerLeft.tag }}</span>
+            {{ footerLeft.label }}
           </button>
-          <button class="dual-pad__btn" :style="footerRightButtonStyle" type="button">
-            <span class="control-tag control-tag--button">L-DEC-</span>
-            DEC-
+          <button
+            class="dual-pad__btn"
+            :style="footerRightButtonStyle"
+            type="button"
+            @mousedown="$emit('footer-press', footerRight.id)"
+            @mouseup="$emit('footer-release', footerRight.id)"
+            @mouseleave="$emit('footer-release', footerRight.id)"
+            @touchstart.stop.prevent="$emit('footer-press', footerRight.id)"
+            @touchend.stop.prevent="$emit('footer-release', footerRight.id)"
+          >
+            <span class="control-tag control-tag--button">{{ footerRight.tag }}</span>
+            {{ footerRight.label }}
           </button>
           <button
             class="dual-pad__btn dual-pad__btn--func"
@@ -79,10 +87,10 @@
             :style="footerFuncButtonStyle"
             type="button"
             data-testid="lcw-btn-toggle-docker-chart-params"
-            @click="toggleDockerChartParams"
+            @click="handleFooterAction"
           >
-            <span class="control-tag control-tag--button">L-Docker</span>
-            D-Chart
+            <span class="control-tag control-tag--button">{{ footerAction.tag }}</span>
+            {{ footerAction.label }}
           </button>
         </div>
       </section>
@@ -114,23 +122,57 @@ const BLUR_SOURCE_IDS = ['guiderCamera-canvas', 'mainCamera-canvas', 'stel-canva
 
 export default {
   name: 'LeftControlWing',
+  props: {
+    activeMode: {
+      type: String,
+      default: 'mount'
+    },
+    heroTitle: {
+      type: String,
+      default: 'Mount'
+    },
+    heroEyebrow: {
+      type: String,
+      default: 'Mode'
+    },
+    primaryModes: {
+      type: Array,
+      default: () => []
+    },
+    actionItems: {
+      type: Array,
+      default: () => []
+    },
+    footerLeft: {
+      type: Object,
+      default: () => ({ id: 'mount-ra-minus', label: 'RA-', tag: 'L-RA-' })
+    },
+    footerRight: {
+      type: Object,
+      default: () => ({ id: 'mount-dec-minus', label: 'DEC-', tag: 'L-DEC-' })
+    },
+    footerAction: {
+      type: Object,
+      default: () => ({ id: 'dock-toggle', label: 'D-Chart', tag: 'L-Docker' })
+    },
+    dockExpanded: {
+      type: Boolean,
+      default: false
+    }
+  },
   data () {
     return {
       panelShapeUrl: require('@/assets/images/panel_fill_mask.svg'),
       blurTimer: null,
-      panelPointer: null,
-      dockerChartParamsOpen: false,
-      primaryModes: [
-        { glyph: '☆', tag: 'L-Mode-1' },
-        { glyph: '✦', tag: 'L-Mode-2' },
-        { glyph: '◎', tag: 'L-Mode-3' },
-        { glyph: '◌', tag: 'L-Mode-4' }
-      ],
-      leftActions: [
-        { icon: '☆', title: 'Guiding', tag: 'L-Guide' },
-        { icon: '⟳', title: 'Tracking', tag: 'L-Track' },
-        { icon: '⊙', title: 'Focus', tag: 'L-Focus' }
-      ]
+      dockerChartParamsOpen: false
+    }
+  },
+  watch: {
+    dockExpanded: {
+      immediate: true,
+      handler (value) {
+        this.dockerChartParamsOpen = !!value
+      }
     }
   },
   mounted () {
@@ -172,31 +214,9 @@ export default {
     }
   },
   methods: {
-    handlePanelPointerMove (event) {
-      const panel = this.$refs.panelInner
-      if (!panel) return
-
-      const rect = panel.getBoundingClientRect()
-      if (rect.width <= 0 || rect.height <= 0) return
-
-      const relativeX = Math.min(Math.max(event.clientX - rect.left, 0), rect.width)
-      const relativeY = Math.min(Math.max(event.clientY - rect.top, 0), rect.height)
-      const localWidth = Math.max(panel.clientWidth, 1)
-      const localHeight = Math.max(panel.clientHeight, 1)
-      const scaleX = rect.width / localWidth
-      const scaleY = rect.height / localHeight
-      const localX = relativeX / Math.max(scaleX, 0.0001)
-      const localY = relativeY / Math.max(scaleY, 0.0001)
-
-      this.panelPointer = {
-        x: Math.round(VIEWBOX.x + ((relativeX / rect.width) * VIEWBOX.width)),
-        y: Math.round(VIEWBOX.y + ((relativeY / rect.height) * VIEWBOX.height)),
-        localX: Math.round(localX),
-        localY: Math.round(localY)
-      }
-    },
-    clearPanelPointer () {
-      this.panelPointer = null
+    handleFooterAction () {
+      this.dockerChartParamsOpen = !this.dockerChartParamsOpen
+      this.$emit('footer-action', this.footerAction.id)
     },
     findActiveViewportCanvas () {
       let best = null
@@ -264,13 +284,6 @@ export default {
         top: `${Math.round(y - (MENU_ICON_SIZE / 2))}px`
       }
     },
-    toggleDockerChartParams () {
-      this.dockerChartParamsOpen = !this.dockerChartParamsOpen
-      this.$bus && this.$bus.$emit('toggleDockerChartParams', {
-        source: 'left-control-wing',
-        open: this.dockerChartParamsOpen
-      })
-    },
     footerButtonStyleFromCircle (circle) {
       const scale = this.geometryScale
       const x = (circle.cx - VIEWBOX.x) * scale
@@ -291,6 +304,7 @@ export default {
   min-height: 0;
   flex: 0 0 auto;
   position: relative;
+  pointer-events: none;
 }
 
 .control-wing__inner {
@@ -298,6 +312,7 @@ export default {
   height: 100%;
   isolation: isolate;
   padding: 0;
+  pointer-events: none;
 }
 
 .control-wing__blur-canvas {
@@ -380,6 +395,12 @@ export default {
     0 10px 22px rgba(28, 39, 55, 0.1);
 }
 
+.hero-orb--button {
+  border: 0;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
 .hero-orb__inner {
   width: 116px;
   height: 116px;
@@ -416,6 +437,7 @@ export default {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.08),
     0 14px 30px rgba(0, 0, 0, 0.22);
+  pointer-events: none;
 }
 
 .side-rail__button {
@@ -428,11 +450,20 @@ export default {
   color: rgba(21, 29, 41, 0.88);
   font-size: 20px;
   cursor: pointer;
+  pointer-events: auto;
+}
+
+.side-rail__button--active {
+  background: rgba(186, 224, 255, 0.52);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.84),
+    0 12px 24px rgba(33, 80, 128, 0.22);
 }
 
 .wing-menu {
   position: absolute;
   inset: 0;
+  pointer-events: none;
 }
 
 .menu-item {
@@ -449,6 +480,7 @@ export default {
   color: rgba(17, 26, 39, 0.94);
   text-align: left;
   cursor: pointer;
+  pointer-events: auto;
 }
 
 .menu-item__icon {
@@ -466,6 +498,11 @@ export default {
   font-size: 22px;
 }
 
+.menu-item__icon :deep(.v-icon) {
+  font-size: 24px;
+  color: inherit;
+}
+
 .menu-item__text {
   font-size: 16px;
   line-height: 1;
@@ -477,11 +514,13 @@ export default {
   right: 0;
   bottom: 0;
   height: 170px;
+  pointer-events: none;
 }
 
 .dual-pad {
   position: absolute;
   inset: 0;
+  pointer-events: none;
 }
 
 .dual-pad__btn {
@@ -498,6 +537,7 @@ export default {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.76),
     0 12px 22px rgba(33, 44, 62, 0.12);
+  pointer-events: auto;
 }
 
 .dual-pad__btn--func {
@@ -551,66 +591,6 @@ export default {
 .control-tag--orb,
 .control-tag--caption {
   top: -12px;
-}
-
-.panel-pointer-readout {
-  position: absolute;
-  top: 18px;
-  left: 18px;
-  z-index: 4;
-  padding: 8px 12px;
-  border-radius: 999px;
-  background: rgba(9, 16, 28, 0.74);
-  color: rgba(244, 248, 255, 0.96);
-  font-size: 12px;
-  line-height: 1;
-  letter-spacing: 0.04em;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.12),
-    0 10px 22px rgba(0, 0, 0, 0.18);
-  pointer-events: none;
-  backdrop-filter: blur(10px);
-}
-
-.panel-pointer-guides {
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  pointer-events: none;
-}
-
-.panel-pointer-guide {
-  position: absolute;
-  background: rgba(112, 201, 255, 0.7);
-  box-shadow: 0 0 10px rgba(112, 201, 255, 0.28);
-}
-
-.panel-pointer-guide--vertical {
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  transform: translateX(-0.5px);
-}
-
-.panel-pointer-guide--horizontal {
-  left: 0;
-  right: 0;
-  height: 1px;
-  transform: translateY(-0.5px);
-}
-
-.panel-pointer-crosshair {
-  position: absolute;
-  width: 14px;
-  height: 14px;
-  border: 1px solid rgba(204, 243, 255, 0.96);
-  border-radius: 50%;
-  background: rgba(112, 201, 255, 0.18);
-  box-shadow:
-    0 0 0 4px rgba(112, 201, 255, 0.08),
-    0 0 14px rgba(112, 201, 255, 0.26);
-  transform: translate(-50%, -50%);
-  pointer-events: none;
 }
 
 </style>

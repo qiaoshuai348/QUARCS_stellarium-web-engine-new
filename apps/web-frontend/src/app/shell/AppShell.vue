@@ -1250,11 +1250,15 @@ export default {
   border-radius: 44px;
   border: 1px solid rgba(214, 226, 244, 0.12);
   background:
+    radial-gradient(circle at 0% 52%, rgba(94, 136, 210, 0.09), transparent 18%),
+    radial-gradient(circle at 100% 52%, rgba(94, 136, 210, 0.09), transparent 18%),
     radial-gradient(circle at 50% 0%, rgba(143, 182, 255, 0.08), transparent 24%),
-    radial-gradient(circle at 50% 100%, rgba(143, 182, 255, 0.06), transparent 26%);
+    radial-gradient(circle at 50% 100%, rgba(143, 182, 255, 0.06), transparent 26%),
+    linear-gradient(180deg, rgba(8, 15, 27, 0.04), rgba(3, 8, 16, 0.12));
   box-shadow:
     inset 0 0 0 1px rgba(255, 255, 255, 0.05),
-    inset 0 -40px 120px rgba(2, 7, 16, 0.18);
+    inset 0 -40px 120px rgba(2, 7, 16, 0.18),
+    inset 0 24px 72px rgba(115, 161, 238, 0.03);
 }
 
 .app-shell__stage-frame--hidden {

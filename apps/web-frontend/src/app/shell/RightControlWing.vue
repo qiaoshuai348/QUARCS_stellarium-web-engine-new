@@ -177,7 +177,8 @@ export default {
     panelStyle () {
       return {
         '--panel-shape-url': `url(${this.panelShapeUrl})`,
-        '--panel-clip-path': PANEL_CLIP_PATH
+        '--panel-clip-path': PANEL_CLIP_PATH,
+        '--panel-texture-image': 'none'
       }
     },
     geometryScale () {
@@ -260,7 +261,7 @@ export default {
       ctx.clearRect(0, 0, width, height)
       ctx.save()
       ctx.imageSmoothingEnabled = true
-      ctx.filter = 'blur(8px) saturate(1.15) brightness(0.92)'
+      ctx.filter = 'blur(10px) saturate(1.08) brightness(1.02)'
       const pad = Math.round(Math.max(width, height) * 0.04)
       ctx.drawImage(sourceCanvas, srcX, srcY, srcW, srcH, -pad, -pad, width + (pad * 2), height + (pad * 2))
       ctx.restore()
@@ -301,6 +302,7 @@ export default {
 }
 
 .control-wing__inner {
+  --panel-texture-image: none;
   position: relative;
   height: 100%;
   isolation: isolate;
@@ -314,7 +316,7 @@ export default {
   width: 100%;
   height: 100%;
   display: block;
-  opacity: 0.8;
+  opacity: 0.46;
   -webkit-clip-path: var(--panel-clip-path);
   clip-path: var(--panel-clip-path);
   z-index: 0;
@@ -325,16 +327,28 @@ export default {
   content: "";
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.08)),
-    radial-gradient(circle at 82% 12%, rgba(255, 255, 255, 0.14), transparent 30%),
-    linear-gradient(180deg, rgba(108, 121, 148, 0.16), rgba(62, 72, 96, 0.12));
+  background-image:
+    radial-gradient(circle at 78% 12%, rgba(126, 170, 255, 0.18), transparent 24%),
+    radial-gradient(circle at 72% 34%, rgba(62, 99, 180, 0.16), transparent 36%),
+    radial-gradient(circle at 66% 58%, rgba(32, 68, 142, 0.14), transparent 34%),
+    radial-gradient(circle at 80% 20%, rgba(245, 248, 255, 0.14) 0 0.8px, transparent 1.6px),
+    radial-gradient(circle at 66% 30%, rgba(214, 229, 255, 0.12) 0 0.9px, transparent 1.8px),
+    radial-gradient(circle at 76% 46%, rgba(205, 225, 255, 0.1) 0 1px, transparent 2px),
+    radial-gradient(circle at 70% 68%, rgba(245, 250, 255, 0.08) 0 1.1px, transparent 2.2px),
+    linear-gradient(242deg, transparent 0%, rgba(156, 196, 255, 0.06) 14%, transparent 15.5%, transparent 54%, rgba(156, 196, 255, 0.05) 55.5%, transparent 57%),
+    linear-gradient(206deg, transparent 0%, transparent 34%, rgba(120, 168, 240, 0.05) 35%, transparent 36.2%, transparent 72%, rgba(120, 168, 240, 0.04) 73%, transparent 74%),
+    var(--panel-texture-image),
+    linear-gradient(180deg, rgba(10, 17, 31, 0.72) 0%, rgba(7, 13, 24, 0.82) 42%, rgba(4, 9, 17, 0.92) 100%);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto, auto, auto, auto, auto, auto, auto, 100% 100%, 100% 100%, cover, 100% 100%;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.32),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.12),
-    inset 0 18px 28px rgba(255, 255, 255, 0.08),
-    inset 0 -18px 34px rgba(10, 18, 34, 0.14),
-    16px 18px 30px rgba(0, 0, 0, 0.18);
+    inset 0 1px 0 rgba(225, 237, 255, 0.16),
+    inset 0 0 0 1px rgba(120, 164, 236, 0.12),
+    inset 18px 0 38px rgba(86, 132, 220, 0.07),
+    inset 0 28px 44px rgba(176, 207, 255, 0.04),
+    inset 0 -30px 42px rgba(3, 7, 14, 0.34),
+    -10px 16px 28px rgba(0, 4, 10, 0.16);
   -webkit-clip-path: var(--panel-clip-path);
   clip-path: var(--panel-clip-path);
   z-index: 0;
@@ -346,11 +360,13 @@ export default {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.05) 20%, transparent 44%, transparent 74%, rgba(255, 255, 255, 0.06));
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.015) 12%, rgba(5, 10, 18, 0.08) 36%, rgba(4, 9, 17, 0.22) 100%),
+    radial-gradient(circle at 92% 42%, rgba(146, 193, 255, 0.12), transparent 28%),
+    radial-gradient(circle at 74% 72%, rgba(79, 121, 204, 0.1), transparent 24%),
+    linear-gradient(228deg, rgba(255, 255, 255, 0.08), transparent 20%, transparent 72%, rgba(181, 214, 255, 0.06));
   -webkit-clip-path: var(--panel-clip-path);
   clip-path: var(--panel-clip-path);
-  opacity: 0.78;
-  mix-blend-mode: screen;
+  opacity: 0.96;
   z-index: 0;
   pointer-events: none;
 }
@@ -370,7 +386,8 @@ export default {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-size: 14px;
-  color: rgba(242, 246, 251, 0.92);
+  color: rgba(230, 238, 249, 0.84);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.28);
 }
 
 .wing-eyebrow--right {
@@ -386,10 +403,13 @@ export default {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: rgba(244, 248, 252, 0.1);
+  background:
+    radial-gradient(circle at 30% 28%, rgba(189, 223, 255, 0.18), transparent 34%),
+    linear-gradient(180deg, rgba(22, 33, 56, 0.72), rgba(10, 17, 31, 0.82));
   box-shadow:
-    inset 0 0 0 3px rgba(229, 238, 250, 0.58),
-    0 10px 22px rgba(16, 24, 40, 0.14);
+    inset 0 0 0 2px rgba(223, 236, 255, 0.34),
+    inset 0 14px 24px rgba(178, 212, 255, 0.08),
+    0 12px 28px rgba(1, 6, 14, 0.24);
 }
 
 .hero-orb--button {
@@ -402,9 +422,11 @@ export default {
   width: 116px;
   height: 116px;
   border-radius: 50%;
-  background: rgba(245, 248, 252, 0.08);
+  background:
+    radial-gradient(circle at 34% 30%, rgba(194, 226, 255, 0.12), transparent 32%),
+    linear-gradient(180deg, rgba(18, 29, 48, 0.82), rgba(8, 14, 25, 0.92));
   box-shadow:
-    inset 0 0 0 2px rgba(241, 247, 255, 0.42);
+    inset 0 0 0 2px rgba(218, 234, 255, 0.24);
 }
 
 .hero-caption {
@@ -418,6 +440,7 @@ export default {
   gap: 0;
   font-size: 18px;
   color: rgba(243, 247, 252, 0.92);
+  text-shadow: 0 2px 12px rgba(1, 5, 12, 0.32);
 }
 
 .wing-center-actions {
@@ -435,13 +458,16 @@ export default {
   justify-content: center;
   border: 0;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.12);
+  background:
+    radial-gradient(circle at 30% 28%, rgba(194, 226, 255, 0.18), transparent 34%),
+    linear-gradient(180deg, rgba(22, 33, 56, 0.8), rgba(9, 15, 27, 0.9));
   color: rgba(245, 248, 252, 0.95);
   font-size: 22px;
   cursor: pointer;
   box-shadow:
-    inset 0 0 0 5px rgba(245, 249, 255, 0.8),
-    0 10px 24px rgba(6, 12, 26, 0.16);
+    inset 0 0 0 2px rgba(226, 238, 255, 0.46),
+    inset 0 10px 20px rgba(196, 225, 255, 0.08),
+    0 10px 24px rgba(1, 6, 14, 0.22);
   pointer-events: auto;
 }
 
@@ -472,10 +498,13 @@ export default {
   flex-direction: column;
   gap: 12px;
   border-radius: 28px;
-  background: rgba(13, 22, 39, 0.72);
+  background:
+    linear-gradient(180deg, rgba(15, 27, 46, 0.76), rgba(7, 13, 25, 0.84));
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.08),
-    0 14px 30px rgba(0, 0, 0, 0.22);
+    inset 0 1px 0 rgba(220, 236, 255, 0.12),
+    inset 0 0 0 1px rgba(131, 171, 239, 0.12),
+    0 14px 28px rgba(2, 8, 18, 0.18);
+  backdrop-filter: blur(14px);
   pointer-events: none;
 }
 
@@ -485,10 +514,15 @@ export default {
   height: 44px;
   border: 0;
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.08);
+  background:
+    linear-gradient(180deg, rgba(30, 44, 70, 0.78), rgba(15, 24, 40, 0.88));
   color: rgba(242, 246, 251, 0.9);
   font-size: 20px;
   cursor: pointer;
+  box-shadow:
+    inset 0 1px 0 rgba(230, 240, 255, 0.2),
+    inset 0 0 0 1px rgba(122, 166, 239, 0.12),
+    0 8px 18px rgba(2, 7, 16, 0.18);
   pointer-events: auto;
 }
 
@@ -514,13 +548,17 @@ export default {
   height: 76px;
   border: 0;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.22);
+  background:
+    radial-gradient(circle at 30% 26%, rgba(194, 225, 255, 0.2), transparent 34%),
+    linear-gradient(180deg, rgba(25, 38, 62, 0.84), rgba(10, 16, 28, 0.92));
   color: rgba(245, 248, 252, 0.95);
   font-size: 16px;
   cursor: pointer;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.56),
-    0 12px 22px rgba(6, 12, 26, 0.16);
+    inset 0 1px 0 rgba(235, 243, 255, 0.22),
+    inset 0 0 0 1px rgba(127, 169, 237, 0.16),
+    0 12px 24px rgba(1, 6, 14, 0.24);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.24);
   pointer-events: auto;
 }
 
@@ -532,10 +570,13 @@ export default {
 }
 
 .dual-pad__btn--active {
-  background: rgba(111, 160, 214, 0.42);
+  background:
+    radial-gradient(circle at 30% 26%, rgba(191, 225, 255, 0.26), transparent 34%),
+    linear-gradient(180deg, rgba(48, 79, 125, 0.92), rgba(23, 40, 66, 0.96));
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.66),
-    0 12px 24px rgba(14, 42, 79, 0.24);
+    inset 0 1px 0 rgba(245, 249, 255, 0.34),
+    inset 0 0 0 1px rgba(155, 205, 255, 0.3),
+    0 12px 24px rgba(18, 42, 79, 0.28);
 }
 
 .control-tag {

@@ -1,6 +1,7 @@
 <template>
   <aside class="control-wing control-wing--right">
     <div class="control-wing__inner" :style="panelStyle">
+      <div class="control-wing__aux-border" aria-hidden="true"></div>
       <canvas ref="blurCanvas" class="control-wing__blur-canvas" aria-hidden="true"></canvas>
       <section class="wing-hero">
         <p class="wing-eyebrow wing-eyebrow--right">{{ heroEyebrow }}</p>
@@ -323,16 +324,16 @@ export default {
       const iconMap = {
         'mount-ra-plus': 'mdi-arrow-right-thick',
         'mount-dec-plus': 'mdi-arrow-up-thick',
-        'switch-settings': 'mdi-cog',
+        'switch-settings': 'mdi-tune',
         'focus-right-hold': 'mdi-arrow-right-thick',
         'focus-right-step': 'mdi-plus-circle-outline',
-        'focus-calibration': 'mdi-tune-variant'
+        'focus-calibration': 'mdi-tune'
       }
       if (iconMap[actionId]) return iconMap[actionId]
       if (String(label).includes('RA')) return 'mdi-arrow-right-thick'
       if (String(label).includes('DEC')) return 'mdi-arrow-up-thick'
-      if (String(label).includes('Setting')) return 'mdi-cog'
-      if (String(label).includes('Calib')) return 'mdi-tune-variant'
+      if (String(label).includes('Setting')) return 'mdi-tune'
+      if (String(label).includes('Calib')) return 'mdi-tune'
       return 'mdi-circle-medium'
     }
   }
@@ -355,6 +356,25 @@ export default {
   height: 100%;
   isolation: isolate;
   padding: 0;
+  pointer-events: none;
+}
+
+.control-wing__aux-border {
+  position: absolute;
+  inset: -14px -18px -16px -12px;
+  background:
+    linear-gradient(180deg, rgba(225, 238, 255, 0.04), rgba(255, 255, 255, 0) 18%, rgba(255, 255, 255, 0) 84%, rgba(205, 225, 255, 0.03)),
+    linear-gradient(180deg, rgba(16, 26, 41, 0.28), rgba(7, 13, 23, 0.18));
+  box-shadow:
+    inset 0 0 0 1px rgba(184, 211, 255, 0.16),
+    inset 0 0 0 2px rgba(83, 140, 221, 0.1),
+    inset 28px 0 46px rgba(77, 123, 198, 0.08),
+    0 0 0 1px rgba(232, 240, 255, 0.03),
+    0 22px 38px rgba(0, 4, 10, 0.18);
+  -webkit-clip-path: path("M 438 9 H 264 Q 235 9 216 49 Q 184 124 182 194 Q 186 254 224 308 Q 261 356 268 366 V 521 Q 262 587 223 631 Q 166 692 85 706 H 44 Q 4 706 4 744 V 806 Q 4 850 50 850 H 442 Q 502 850 502 792 V 622 Q 502 599 486 590 V 272 Q 486 255 502 244 V 68 Q 502 30 472 16 Q 458 9 438 9 Z");
+  clip-path: path("M 438 9 H 264 Q 235 9 216 49 Q 184 124 182 194 Q 186 254 224 308 Q 261 356 268 366 V 521 Q 262 587 223 631 Q 166 692 85 706 H 44 Q 4 706 4 744 V 806 Q 4 850 50 850 H 442 Q 502 850 502 792 V 622 Q 502 599 486 590 V 272 Q 486 255 502 244 V 68 Q 502 30 472 16 Q 458 9 438 9 Z");
+  opacity: 0.95;
+  z-index: 0;
   pointer-events: none;
 }
 
@@ -486,16 +506,18 @@ export default {
   width: 40px;
   height: 6px;
   border-radius: 999px;
-  background: linear-gradient(90deg, rgba(86, 146, 242, 0.16), rgba(191, 226, 255, 0.94), rgba(86, 146, 242, 0.16));
-  box-shadow: 0 0 14px rgba(105, 173, 255, 0.24);
+  background: linear-gradient(90deg, rgba(255, 88, 116, 0.12), rgba(255, 126, 146, 1), rgba(255, 88, 116, 0.12));
+  box-shadow: 0 0 14px rgba(255, 110, 136, 0.34);
 }
 
 .hero-orb__mode {
   font-size: 24px;
   font-weight: 600;
   letter-spacing: 0.14em;
-  color: rgba(243, 247, 252, 0.96);
-  text-shadow: 0 1px 12px rgba(1, 5, 12, 0.32);
+  color: rgba(255, 225, 231, 0.96);
+  text-shadow:
+    0 1px 12px rgba(1, 5, 12, 0.32),
+    0 0 16px rgba(255, 110, 136, 0.24);
 }
 
 .hero-caption {
@@ -520,7 +542,10 @@ export default {
 
 .hero-caption__title {
   font-size: 20px;
-  color: rgba(242, 247, 252, 0.96);
+  color: rgba(255, 228, 234, 0.96);
+  text-shadow:
+    0 2px 12px rgba(1, 5, 12, 0.32),
+    0 0 16px rgba(255, 110, 136, 0.16);
 }
 
 .wing-center-actions {
@@ -554,17 +579,25 @@ export default {
   justify-content: center;
   border-radius: 50%;
   background:
-    radial-gradient(circle at 30% 24%, rgba(198, 228, 255, 0.2), transparent 34%),
-    linear-gradient(180deg, rgba(28, 45, 73, 0.92), rgba(9, 15, 27, 0.96));
+    radial-gradient(circle at 28% 24%, rgba(244, 246, 252, 0.18), transparent 28%),
+    radial-gradient(circle at 74% 76%, rgba(120, 86, 104, 0.14), transparent 34%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, transparent 18%, rgba(255, 255, 255, 0.04) 34%, transparent 48%, rgba(168, 140, 158, 0.08) 62%, transparent 74%, rgba(255, 255, 255, 0.04) 100%),
+    linear-gradient(34deg, transparent 0%, rgba(208, 188, 197, 0.08) 22%, transparent 38%, rgba(108, 86, 98, 0.1) 58%, transparent 74%, rgba(224, 211, 217, 0.05) 100%),
+    linear-gradient(180deg, rgba(54, 60, 74, 0.94), rgba(17, 21, 30, 0.98));
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.16),
     inset 0 0 0 2px rgba(223, 236, 255, 0.46),
     inset 0 10px 20px rgba(196, 225, 255, 0.08),
-    0 14px 24px rgba(1, 6, 14, 0.26);
+    0 14px 24px rgba(1, 6, 14, 0.26),
+    0 0 20px rgba(78, 166, 255, 0.14);
 }
 
 .orb-button__icon {
   font-size: 26px !important;
+  color: #72c7ff;
+  text-shadow:
+    0 0 12px rgba(98, 193, 255, 0.56),
+    0 0 22px rgba(65, 146, 255, 0.28);
 }
 
 .orb-button__label {
@@ -719,8 +752,11 @@ export default {
   align-items: center;
   justify-content: center;
   background:
-    radial-gradient(circle at 30% 26%, rgba(194, 225, 255, 0.2), transparent 34%),
-    linear-gradient(180deg, rgba(29, 45, 72, 0.88), rgba(8, 14, 25, 0.96));
+    radial-gradient(circle at 28% 24%, rgba(244, 246, 252, 0.17), transparent 28%),
+    radial-gradient(circle at 74% 76%, rgba(121, 87, 105, 0.12), transparent 34%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, transparent 20%, rgba(255, 255, 255, 0.04) 36%, transparent 50%, rgba(170, 142, 160, 0.08) 66%, transparent 78%, rgba(255, 255, 255, 0.04) 100%),
+    linear-gradient(32deg, transparent 0%, rgba(210, 190, 198, 0.08) 20%, transparent 34%, rgba(110, 88, 100, 0.1) 56%, transparent 72%, rgba(225, 212, 218, 0.05) 100%),
+    linear-gradient(180deg, rgba(48, 54, 66, 0.92), rgba(15, 19, 29, 0.98));
   box-shadow:
     inset 0 1px 0 rgba(235, 243, 255, 0.24),
     inset 0 0 0 1px rgba(127, 169, 237, 0.16),
@@ -730,6 +766,8 @@ export default {
 
 .dual-pad__cap :deep(.v-icon) {
   font-size: 26px;
+  color: rgba(248, 251, 255, 0.98);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.18);
 }
 
 .dual-pad__cap--small {

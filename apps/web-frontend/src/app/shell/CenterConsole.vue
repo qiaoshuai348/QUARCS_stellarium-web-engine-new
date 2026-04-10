@@ -1,10 +1,5 @@
 <template>
   <section class="center-console">
-    <div class="center-console__topline">
-      <span class="center-console__topline-dot"></span>
-      {{ topline }}
-    </div>
-
     <div class="center-console__metrics">
       <div class="metrics-card metrics-card--object">
         <div class="metrics-card__eyebrow">Target</div>
@@ -86,43 +81,14 @@ export default {
   height: 100%;
   pointer-events: none;
   color: var(--qs-text-primary);
-  padding: 40px 12px 0;
-}
-
-.center-console__topline {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 10px 18px;
-  border-radius: 999px;
-  background: linear-gradient(180deg, rgba(18, 30, 49, 0.72), rgba(8, 14, 24, 0.78));
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.08),
-    inset 0 0 0 1px rgba(129, 169, 233, 0.12),
-    0 16px 28px rgba(2, 8, 16, 0.2);
-  text-align: center;
-  letter-spacing: 0.22em;
-  font-size: 12px;
-  color: rgba(245, 248, 252, 0.68);
-  text-transform: uppercase;
-}
-
-.center-console__topline-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(132, 189, 255, 0.92);
-  box-shadow: 0 0 12px rgba(132, 189, 255, 0.64);
+  padding: 22px 12px 0;
 }
 
 .center-console__metrics {
   display: flex;
   justify-content: space-between;
   gap: 24px;
-  margin-top: 22px;
+  margin-top: 0;
 }
 
 .metrics-card {

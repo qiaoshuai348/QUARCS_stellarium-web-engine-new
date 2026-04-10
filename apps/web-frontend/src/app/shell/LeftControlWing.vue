@@ -1,6 +1,7 @@
 <template>
   <aside class="control-wing control-wing--left">
     <div ref="panelInner" class="control-wing__inner" :style="panelStyle">
+      <div class="control-wing__aux-border" aria-hidden="true"></div>
       <canvas ref="blurCanvas" class="control-wing__blur-canvas" aria-hidden="true"></canvas>
       <section class="wing-hero">
         <p class="wing-eyebrow">{{ heroEyebrow }}</p>
@@ -37,7 +38,7 @@
           @click="$emit('left-action', item.id)"
         >
           <span class="menu-item__orb">
-            <v-icon v-if="String(item.icon || '').startsWith('mdi-')">{{ item.icon }}</v-icon>
+            <v-icon v-if="menuActionIcon(item)" class="menu-item__icon">{{ menuActionIcon(item) }}</v-icon>
             <span v-else class="menu-item__glyph">{{ item.icon }}</span>
           </span>
           <span class="menu-item__text">{{ item.title }}</span>
@@ -320,21 +321,41 @@ export default {
       }
       return labels[modeId] || 'Mode'
     },
+    menuActionIcon (item) {
+      const directIcon = String(item && item.icon ? item.icon : '')
+      if (directIcon.startsWith('mdi-')) return directIcon
+
+      const iconMap = {
+        'capture-sync': 'mdi-crosshairs-gps',
+        'capture-fwhm': 'mdi-chart-bell-curve',
+        'capture-focus': 'mdi-image-filter-center-focus-strong',
+        'guiding-loop': 'mdi-refresh',
+        'guiding-range': 'mdi-arrow-left-right-bold-outline',
+        'guiding-clear': 'mdi-broom',
+        'focus-roi': 'mdi-select-drag',
+        'focus-loop': 'mdi-refresh',
+        'focus-calibration': 'mdi-tune',
+        'mount-grid': 'mdi-grid',
+        'mount-dso': 'mdi-star-four-points-outline',
+        'mount-constellation': 'mdi-asterisk'
+      }
+      return iconMap[item && item.id] || ''
+    },
     footerButtonIcon (actionId, label) {
       const iconMap = {
         'mount-ra-minus': 'mdi-arrow-left-thick',
         'mount-dec-minus': 'mdi-arrow-down-thick',
-        'open-devices': 'mdi-usb-port',
+        'open-devices': 'mdi-lan-connect',
         'focus-left-hold': 'mdi-arrow-left-thick',
         'focus-left-step': 'mdi-minus-circle-outline',
         'focus-loop': 'mdi-refresh',
-        'focus-calibration': 'mdi-tune-variant'
+        'focus-calibration': 'mdi-tune'
       }
       if (iconMap[actionId]) return iconMap[actionId]
       if (String(label).includes('RA')) return 'mdi-arrow-left-thick'
       if (String(label).includes('DEC')) return 'mdi-arrow-down-thick'
       if (String(label).includes('Loop')) return 'mdi-refresh'
-      if (String(label).includes('Device')) return 'mdi-usb-port'
+      if (String(label).includes('Device')) return 'mdi-lan-connect'
       return 'mdi-circle-medium'
     }
   }
@@ -357,6 +378,26 @@ export default {
   height: 100%;
   isolation: isolate;
   padding: 0;
+  pointer-events: none;
+}
+
+.control-wing__aux-border {
+  position: absolute;
+  inset: -14px -12px -16px -18px;
+  border-radius: 0;
+  background:
+    linear-gradient(180deg, rgba(225, 238, 255, 0.04), rgba(255, 255, 255, 0) 18%, rgba(255, 255, 255, 0) 84%, rgba(205, 225, 255, 0.03)),
+    linear-gradient(180deg, rgba(16, 26, 41, 0.28), rgba(7, 13, 23, 0.18));
+  box-shadow:
+    inset 0 0 0 1px rgba(184, 211, 255, 0.16),
+    inset 0 0 0 2px rgba(83, 140, 221, 0.1),
+    inset -28px 0 46px rgba(77, 123, 198, 0.08),
+    0 0 0 1px rgba(232, 240, 255, 0.03),
+    0 22px 38px rgba(0, 4, 10, 0.18);
+  -webkit-clip-path: path("M 72 9 H 246 Q 275 9 294 49 Q 326 124 328 194 Q 324 254 286 308 Q 249 356 242 366 V 521 Q 248 587 287 631 Q 344 692 425 706 H 466 Q 506 706 506 744 V 806 Q 506 850 460 850 H 68 Q 8 850 8 792 V 622 Q 8 599 24 590 V 272 Q 24 255 8 244 V 68 Q 8 30 38 16 Q 52 9 72 9 Z");
+  clip-path: path("M 72 9 H 246 Q 275 9 294 49 Q 326 124 328 194 Q 324 254 286 308 Q 249 356 242 366 V 521 Q 248 587 287 631 Q 344 692 425 706 H 466 Q 506 706 506 744 V 806 Q 506 850 460 850 H 68 Q 8 850 8 792 V 622 Q 8 599 24 590 V 272 Q 24 255 8 244 V 68 Q 8 30 38 16 Q 52 9 72 9 Z");
+  opacity: 0.95;
+  z-index: 0;
   pointer-events: none;
 }
 
@@ -444,6 +485,7 @@ export default {
   width: 184px;
   height: 184px;
   pointer-events: none;
+  filter: drop-shadow(0 0 18px rgba(92, 182, 255, 0.22));
 }
 
 .mode-gear__ring,
@@ -454,22 +496,34 @@ export default {
 }
 
 .mode-gear__ring {
-  border: 2px solid rgba(174, 214, 255, 0.18);
+  border: 2px solid rgba(132, 205, 255, 0.34);
   background:
-    radial-gradient(circle at 26% 24%, rgba(214, 235, 255, 0.08), transparent 34%),
-    linear-gradient(180deg, rgba(28, 47, 76, 0.38), rgba(8, 14, 25, 0.12));
+    radial-gradient(circle at 50% 50%, transparent 0 64px, rgba(160, 220, 255, 0.14) 64px 66px, transparent 66px),
+    repeating-conic-gradient(
+      from 0deg,
+      rgba(170, 227, 255, 0.92) 0deg 1.2deg,
+      rgba(72, 126, 192, 0.2) 1.2deg 7.5deg
+    ),
+    radial-gradient(circle at 26% 24%, rgba(214, 235, 255, 0.12), transparent 34%),
+    linear-gradient(180deg, rgba(30, 52, 86, 0.58), rgba(8, 14, 25, 0.22));
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.08),
-    inset 0 0 0 10px rgba(6, 11, 19, 0.18),
-    0 12px 28px rgba(1, 6, 14, 0.18);
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 0 0 10px rgba(6, 11, 19, 0.28),
+    inset 0 0 24px rgba(103, 184, 255, 0.18),
+    0 12px 28px rgba(1, 6, 14, 0.22),
+    0 0 24px rgba(78, 169, 255, 0.2);
+  -webkit-mask:
+    radial-gradient(circle, transparent 0 68px, #000 68px 74px, transparent 74px 100%);
+  mask:
+    radial-gradient(circle, transparent 0 68px, #000 68px 74px, transparent 74px 100%);
 }
 
 .mode-gear__halo {
   inset: 8px;
-  border: 1px solid rgba(160, 201, 255, 0.12);
+  border: 1px solid rgba(158, 220, 255, 0.24);
   box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.03),
-    0 0 18px rgba(82, 146, 242, 0.1);
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05),
+    0 0 18px rgba(82, 146, 242, 0.16);
 }
 
 .mode-gear__tick {
@@ -512,13 +566,15 @@ export default {
   justify-content: center;
   border-radius: 50%;
   background:
-    radial-gradient(circle at 30% 24%, rgba(208, 232, 255, 0.2), transparent 32%),
-    linear-gradient(180deg, rgba(33, 53, 86, 0.84), rgba(8, 14, 25, 0.92));
+    radial-gradient(circle at 28% 22%, rgba(221, 241, 255, 0.24), transparent 30%),
+    radial-gradient(circle at 50% 18%, rgba(101, 196, 255, 0.12), transparent 38%),
+    linear-gradient(180deg, rgba(39, 71, 118, 0.9), rgba(10, 18, 31, 0.96));
   box-shadow:
-    inset 0 0 0 2px rgba(223, 236, 255, 0.4),
-    inset 0 18px 24px rgba(178, 212, 255, 0.08),
-    inset 0 -18px 26px rgba(3, 8, 14, 0.36),
-    0 16px 30px rgba(1, 6, 14, 0.3);
+    inset 0 0 0 2px rgba(197, 231, 255, 0.48),
+    inset 0 18px 24px rgba(178, 212, 255, 0.14),
+    inset 0 -18px 26px rgba(3, 8, 14, 0.42),
+    0 16px 30px rgba(1, 6, 14, 0.34),
+    0 0 28px rgba(72, 175, 255, 0.2);
   z-index: 2;
 }
 
@@ -538,18 +594,20 @@ export default {
   justify-content: center;
   gap: 8px;
   background:
-    radial-gradient(circle at 34% 30%, rgba(194, 226, 255, 0.14), transparent 32%),
-    linear-gradient(180deg, rgba(19, 31, 51, 0.94), rgba(8, 14, 25, 0.98));
+    radial-gradient(circle at 34% 30%, rgba(199, 231, 255, 0.16), transparent 32%),
+    radial-gradient(circle at 50% 14%, rgba(91, 185, 255, 0.12), transparent 34%),
+    linear-gradient(180deg, rgba(18, 34, 58, 0.96), rgba(7, 14, 24, 0.99));
   box-shadow:
-    inset 0 0 0 2px rgba(218, 234, 255, 0.28);
+    inset 0 0 0 2px rgba(190, 229, 255, 0.34),
+    inset 0 0 24px rgba(77, 175, 255, 0.1);
 }
 
 .hero-orb__accent {
   width: 40px;
   height: 6px;
   border-radius: 999px;
-  background: linear-gradient(90deg, rgba(86, 146, 242, 0.16), rgba(191, 226, 255, 0.94), rgba(86, 146, 242, 0.16));
-  box-shadow: 0 0 14px rgba(105, 173, 255, 0.24);
+  background: linear-gradient(90deg, rgba(86, 146, 242, 0.12), rgba(116, 213, 255, 1), rgba(86, 146, 242, 0.12));
+  box-shadow: 0 0 14px rgba(105, 173, 255, 0.36);
 }
 
 .hero-orb__mode {
@@ -619,24 +677,36 @@ export default {
   justify-content: center;
   border-radius: 50%;
   background:
-    radial-gradient(circle at 30% 24%, rgba(198, 228, 255, 0.2), transparent 34%),
-    linear-gradient(180deg, rgba(28, 45, 73, 0.92), rgba(9, 15, 27, 0.96));
+    radial-gradient(circle at 28% 24%, rgba(238, 245, 255, 0.2), transparent 28%),
+    radial-gradient(circle at 70% 72%, rgba(74, 116, 184, 0.16), transparent 34%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, transparent 18%, rgba(255, 255, 255, 0.05) 34%, transparent 48%, rgba(145, 176, 222, 0.08) 62%, transparent 74%, rgba(255, 255, 255, 0.04) 100%),
+    linear-gradient(35deg, transparent 0%, rgba(170, 193, 224, 0.08) 22%, transparent 38%, rgba(90, 116, 150, 0.1) 58%, transparent 74%, rgba(196, 214, 235, 0.06) 100%),
+    linear-gradient(180deg, rgba(52, 66, 92, 0.94), rgba(16, 24, 38, 0.98));
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.16),
     inset 0 0 0 2px rgba(223, 236, 255, 0.46),
     inset 0 10px 20px rgba(196, 225, 255, 0.08),
-    0 14px 24px rgba(1, 6, 14, 0.26);
+    0 14px 24px rgba(1, 6, 14, 0.26),
+    0 0 20px rgba(78, 166, 255, 0.14);
   font-size: 26px;
 }
 
+.menu-item__icon,
 .menu-item__orb :deep(.v-icon) {
   font-size: 26px;
-  color: inherit;
+  color: #72c7ff;
+  text-shadow:
+    0 0 12px rgba(98, 193, 255, 0.56),
+    0 0 22px rgba(65, 146, 255, 0.28);
 }
 
 .menu-item__glyph {
   font-size: 24px;
   line-height: 1;
+  color: #72c7ff;
+  text-shadow:
+    0 0 12px rgba(98, 193, 255, 0.56),
+    0 0 22px rgba(65, 146, 255, 0.28);
 }
 
 .menu-item__text {
@@ -688,8 +758,11 @@ export default {
   align-items: center;
   justify-content: center;
   background:
-    radial-gradient(circle at 30% 26%, rgba(194, 225, 255, 0.2), transparent 34%),
-    linear-gradient(180deg, rgba(29, 45, 72, 0.88), rgba(8, 14, 25, 0.96));
+    radial-gradient(circle at 28% 24%, rgba(238, 245, 255, 0.18), transparent 28%),
+    radial-gradient(circle at 72% 74%, rgba(76, 118, 186, 0.14), transparent 34%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, transparent 20%, rgba(255, 255, 255, 0.04) 36%, transparent 50%, rgba(146, 176, 219, 0.08) 66%, transparent 78%, rgba(255, 255, 255, 0.04) 100%),
+    linear-gradient(32deg, transparent 0%, rgba(175, 198, 227, 0.08) 20%, transparent 34%, rgba(93, 118, 151, 0.1) 56%, transparent 72%, rgba(200, 215, 234, 0.05) 100%),
+    linear-gradient(180deg, rgba(46, 59, 82, 0.92), rgba(14, 20, 32, 0.98));
   box-shadow:
     inset 0 1px 0 rgba(235, 243, 255, 0.24),
     inset 0 0 0 1px rgba(127, 169, 237, 0.16),
@@ -699,6 +772,8 @@ export default {
 
 .dual-pad__cap :deep(.v-icon) {
   font-size: 26px;
+  color: rgba(248, 251, 255, 0.98);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.18);
 }
 
 .dual-pad__cap--small {

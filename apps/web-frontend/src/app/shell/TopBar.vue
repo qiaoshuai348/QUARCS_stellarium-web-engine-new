@@ -75,8 +75,8 @@ export default {
 .top-bar {
   position: absolute;
   top: 10px;
-  left: 18px;
-  right: 18px;
+  left: 236px;
+  right: 236px;
   z-index: 260;
   display: flex;
   align-items: center;
@@ -88,13 +88,14 @@ export default {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 16px;
+  padding: 0 20px;
+  height: 34px;
   border-radius: 999px;
-  background: linear-gradient(180deg, rgba(21, 34, 55, 0.84), rgba(7, 14, 24, 0.92));
+  background: linear-gradient(180deg, rgba(18, 31, 51, 0.58), rgba(7, 14, 24, 0.72));
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.08),
     inset 0 0 0 1px rgba(131, 171, 239, 0.12),
-    0 16px 26px rgba(1, 6, 14, 0.22);
+    0 10px 22px rgba(1, 6, 14, 0.14);
   backdrop-filter: blur(14px);
   pointer-events: none;
 }
@@ -187,8 +188,8 @@ export default {
 
 @media (max-width: 960px) {
   .top-bar {
-    left: 12px;
-    right: 12px;
+    left: 132px;
+    right: 132px;
   }
 
   .top-bar__actions {

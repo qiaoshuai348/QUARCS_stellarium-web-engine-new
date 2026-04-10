@@ -307,21 +307,10 @@ export default {
       return map[this.currentMode] || 'Control'
     },
     topBarPrimaryActions () {
-      return [
-        { id: 'top-devices', label: 'Devices' },
-        { id: 'top-settings', label: 'Settings' },
-        { id: 'top-schedule', label: 'Schedule' },
-        { id: 'top-files', label: 'Files' }
-      ]
+      return []
     },
     topBarSecondaryActions () {
-      return [
-        { id: 'top-allocate', label: 'Bind' },
-        { id: 'top-debug', label: 'Debug' },
-        { id: 'top-time', label: 'Time' },
-        { id: 'top-hotspot', label: 'WiFi' },
-        { id: 'top-location', label: 'Loc' }
-      ]
+      return []
     },
     activeTopActionIds () {
       const active = []
@@ -426,13 +415,13 @@ export default {
       if (this.currentMode === 'settings') {
         return [
           { id: 'settings-device-telescope', icon: 'mdi-telescope', label: 'SCOPE', tag: 'R-Scope' },
-          { id: 'settings-device-focuser', icon: 'mdi-tune-vertical-variant', label: 'FOC', tag: 'R-Foc' },
+          { id: 'settings-device-focuser', icon: 'mdi-focus-field', label: 'FOC', tag: 'R-Foc' },
           { id: 'settings-device-cfw', icon: 'mdi-image-filter-center-focus-strong', label: 'CFW', tag: 'R-CFW' }
         ]
       }
       if (this.currentMode === 'capture') {
         return [
-          { id: 'capture-exp', icon: 'mdi-timer-outline', label: 'EXP', tag: 'R-EXP' },
+          { id: 'capture-exp', icon: 'mdi-progress-clock', label: 'EXP', tag: 'R-EXP' },
           { id: 'capture-filter', icon: 'mdi-image-filter-center-focus-strong', label: this.currentFilterLabel, tag: 'R-CFW' },
           { id: 'capture-save', icon: 'mdi-content-save-outline', label: 'SAVE', tag: 'R-Save' }
         ]
@@ -440,15 +429,15 @@ export default {
       if (this.currentMode === 'guiding') {
         return [
           { id: 'guiding-loop', icon: 'mdi-refresh', label: this.guiderLoopActive ? 'Loop On' : 'Loop', tag: 'R-Loop' },
-          { id: 'guiding-exp', icon: 'mdi-timer-outline', label: `${this.guiderExpTimeMs}ms`, tag: 'R-EXP' },
-          { id: 'guiding-recalibrate', icon: 'mdi-compass-rose', label: 'Recal', tag: 'R-Recal' }
+          { id: 'guiding-exp', icon: 'mdi-progress-clock', label: `${this.guiderExpTimeMs}ms`, tag: 'R-EXP' },
+          { id: 'guiding-recalibrate', icon: 'mdi-radar', label: 'Recal', tag: 'R-Recal' }
         ]
       }
       if (this.currentMode === 'focus') {
         return [
           { id: 'focus-speed', icon: 'mdi-speedometer', label: `SPD ${this.focuserSpeedText}`, tag: 'R-Speed' },
           { id: 'focus-roi', icon: 'mdi-select-drag', label: `ROI ${this.focuserRoiText}`, tag: 'R-ROI' },
-          { id: 'focus-calibration', icon: 'mdi-chart-bell-curve-cumulative', label: 'Calib', tag: 'R-Calib' }
+          { id: 'focus-calibration', icon: 'mdi-chart-bell-curve', label: 'Calib', tag: 'R-Calib' }
         ]
       }
       return [
@@ -1443,10 +1432,10 @@ export default {
 
 .app-shell__search {
   position: absolute;
-  top: 58px;
+  top: 54px;
   left: 50%;
   z-index: 255;
-  width: min(390px, calc(100% - 620px));
+  width: min(390px, calc(100% - 660px));
   min-width: 220px;
   transform: translateX(-50%);
 }
@@ -1653,7 +1642,7 @@ export default {
   }
 
   .app-shell__search {
-    top: 58px;
+    top: 52px;
     width: min(320px, calc(100% - 80px));
     min-width: 0;
   }

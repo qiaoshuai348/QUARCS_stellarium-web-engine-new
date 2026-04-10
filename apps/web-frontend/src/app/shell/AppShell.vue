@@ -1483,12 +1483,12 @@ export default {
   inset: 18px 10px 12px;
   border-radius: 56px;
   background:
-    radial-gradient(circle at 50% 0%, rgba(68, 106, 168, 0.18), transparent 28%),
-    linear-gradient(180deg, rgba(8, 14, 24, 0.94) 0%, rgba(3, 8, 16, 0.98) 100%);
+    radial-gradient(circle at 50% 0%, rgba(200, 220, 255, 0.22), transparent 28%),
+    linear-gradient(180deg, rgba(198, 212, 238, 0.96) 0%, rgba(178, 195, 228, 0.98) 100%);
   box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.06),
-    inset 0 1px 0 rgba(255, 255, 255, 0.07),
-    0 30px 80px rgba(0, 0, 0, 0.3);
+    inset 0 0 0 1px rgba(165, 192, 238, 0.40),
+    inset 0 1px 0 rgba(255, 255, 255, 0.52),
+    0 30px 80px rgba(60, 85, 140, 0.22);
 }
 
 .control-tag {
@@ -1600,33 +1600,39 @@ export default {
   min-height: 44px !important;
   padding: 0 16px !important;
   border-radius: 20px !important;
-  background: linear-gradient(180deg, rgba(20, 33, 55, 0.74), rgba(8, 15, 27, 0.84)) !important;
+  background: linear-gradient(180deg, rgba(212, 224, 248, 0.94), rgba(190, 206, 236, 0.96)) !important;
   box-shadow:
-    inset 0 1px 0 rgba(234, 243, 255, 0.16),
-    inset 0 0 0 1px rgba(134, 177, 248, 0.2),
-    0 14px 28px rgba(1, 6, 14, 0.22) !important;
+    inset 0 1px 0 rgba(255, 255, 255, 0.56),
+    inset 0 0 0 1px rgba(155, 190, 248, 0.40),
+    0 14px 28px rgba(60, 85, 140, 0.16) !important;
   backdrop-filter: blur(16px);
 }
 
 .app-shell__search::v-deep(.v-text-field__slot input),
 .app-shell__search::v-deep(.v-label),
 .app-shell__search::v-deep(.v-input__prepend-inner .v-icon) {
-  color: rgba(240, 246, 252, 0.9) !important;
+  color: rgba(22, 42, 82, 0.90) !important;
 }
 
 .app-shell__search::v-deep(.v-list) {
   margin-top: 8px;
   border-radius: 20px;
-  background: linear-gradient(180deg, rgba(16, 27, 44, 0.94), rgba(7, 14, 25, 0.96)) !important;
+  background: linear-gradient(180deg, rgba(205, 218, 244, 0.97), rgba(185, 200, 230, 0.98)) !important;
   box-shadow:
-    inset 0 1px 0 rgba(234, 243, 255, 0.08),
-    inset 0 0 0 1px rgba(132, 176, 247, 0.16),
-    0 18px 36px rgba(1, 5, 12, 0.24);
+    inset 0 1px 0 rgba(255, 255, 255, 0.52),
+    inset 0 0 0 1px rgba(155, 188, 245, 0.36),
+    0 18px 36px rgba(60, 85, 140, 0.20);
   backdrop-filter: blur(16px);
 }
 
 .app-shell__search::v-deep(.v-list-item) {
   min-height: 56px;
+  color: rgba(22, 42, 82, 0.90) !important;
+}
+
+.app-shell__search::v-deep(.v-list-item__title),
+.app-shell__search::v-deep(.v-list-item__subtitle) {
+  color: rgba(22, 42, 82, 0.90) !important;
 }
 
 @media (max-width: 960px) {

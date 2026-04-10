@@ -97,14 +97,14 @@ export default {
   max-width: 320px;
   padding: 18px 22px;
   border-radius: 26px;
-  border: 1px solid rgba(128, 166, 227, 0.12);
+  border: 1px solid rgba(165, 192, 238, 0.36);
   background:
-    linear-gradient(180deg, rgba(23, 37, 60, 0.82), rgba(8, 14, 25, 0.9));
+    linear-gradient(180deg, rgba(208, 220, 244, 0.90), rgba(185, 200, 230, 0.94));
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.08),
-    inset 0 -18px 28px rgba(3, 8, 14, 0.28),
-    0 18px 30px rgba(0, 0, 0, 0.18);
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.42);
+    inset 0 1px 0 rgba(255, 255, 255, 0.52),
+    inset 0 -18px 28px rgba(130, 155, 205, 0.18),
+    0 18px 30px rgba(60, 85, 140, 0.14);
+  text-shadow: 0 1px 6px rgba(255, 255, 255, 0.28);
   backdrop-filter: blur(16px);
 }
 
@@ -151,7 +151,7 @@ export default {
   gap: 10px;
   margin-top: 14px;
   padding-top: 12px;
-  border-top: 1px solid rgba(128, 166, 227, 0.12);
+  border-top: 1px solid rgba(148, 178, 230, 0.28);
   font-size: 13px;
 }
 

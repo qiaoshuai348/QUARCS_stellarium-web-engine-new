@@ -363,14 +363,14 @@ export default {
   position: absolute;
   inset: -14px -18px -16px -12px;
   background:
-    linear-gradient(180deg, rgba(225, 238, 255, 0.04), rgba(255, 255, 255, 0) 18%, rgba(255, 255, 255, 0) 84%, rgba(205, 225, 255, 0.03)),
-    linear-gradient(180deg, rgba(16, 26, 41, 0.28), rgba(7, 13, 23, 0.18));
+    linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(240, 246, 255, 0.10) 18%, rgba(235, 242, 255, 0.08) 84%, rgba(220, 232, 255, 0.14)),
+    linear-gradient(180deg, rgba(185, 200, 225, 0.20), rgba(168, 185, 215, 0.14));
   box-shadow:
-    inset 0 0 0 1px rgba(184, 211, 255, 0.16),
-    inset 0 0 0 2px rgba(83, 140, 221, 0.1),
-    inset 28px 0 46px rgba(77, 123, 198, 0.08),
-    0 0 0 1px rgba(232, 240, 255, 0.03),
-    0 22px 38px rgba(0, 4, 10, 0.18);
+    inset 0 0 0 1px rgba(210, 225, 255, 0.32),
+    inset 0 0 0 2px rgba(160, 192, 240, 0.18),
+    inset 28px 0 46px rgba(180, 208, 245, 0.12),
+    0 0 0 1px rgba(232, 240, 255, 0.06),
+    0 22px 38px rgba(0, 4, 10, 0.14);
   -webkit-clip-path: path("M 438 9 H 264 Q 235 9 216 49 Q 184 124 182 194 Q 186 254 224 308 Q 261 356 268 366 V 521 Q 262 587 223 631 Q 166 692 85 706 H 44 Q 4 706 4 744 V 806 Q 4 850 50 850 H 442 Q 502 850 502 792 V 622 Q 502 599 486 590 V 272 Q 486 255 502 244 V 68 Q 502 30 472 16 Q 458 9 438 9 Z");
   clip-path: path("M 438 9 H 264 Q 235 9 216 49 Q 184 124 182 194 Q 186 254 224 308 Q 261 356 268 366 V 521 Q 262 587 223 631 Q 166 692 85 706 H 44 Q 4 706 4 744 V 806 Q 4 850 50 850 H 442 Q 502 850 502 792 V 622 Q 502 599 486 590 V 272 Q 486 255 502 244 V 68 Q 502 30 472 16 Q 458 9 438 9 Z");
   opacity: 0.95;
@@ -384,7 +384,7 @@ export default {
   width: 100%;
   height: 100%;
   display: block;
-  opacity: 0.4;
+  opacity: 0.06;
   -webkit-clip-path: var(--panel-clip-path);
   clip-path: var(--panel-clip-path);
   z-index: 0;
@@ -396,23 +396,23 @@ export default {
   position: absolute;
   inset: 0;
   background-image:
-    radial-gradient(circle at 82% 12%, rgba(162, 198, 255, 0.2), transparent 24%),
-    radial-gradient(circle at 76% 38%, rgba(67, 105, 184, 0.2), transparent 38%),
-    radial-gradient(circle at 82% 72%, rgba(18, 34, 62, 0.36), transparent 28%),
-    linear-gradient(242deg, transparent 0%, rgba(156, 196, 255, 0.06) 14%, transparent 15.5%, transparent 54%, rgba(156, 196, 255, 0.05) 55.5%, transparent 57%),
-    linear-gradient(206deg, transparent 0%, transparent 34%, rgba(120, 168, 240, 0.05) 35%, transparent 36.2%, transparent 72%, rgba(120, 168, 240, 0.04) 73%, transparent 74%),
+    radial-gradient(circle at 82% 12%, rgba(245, 250, 255, 0.60), transparent 24%),
+    radial-gradient(circle at 76% 38%, rgba(205, 220, 248, 0.40), transparent 38%),
+    radial-gradient(circle at 82% 72%, rgba(168, 185, 215, 0.30), transparent 28%),
+    linear-gradient(242deg, transparent 0%, rgba(255, 255, 255, 0.14) 14%, transparent 15.5%, transparent 54%, rgba(255, 255, 255, 0.10) 55.5%, transparent 57%),
+    linear-gradient(206deg, transparent 0%, transparent 34%, rgba(225, 235, 252, 0.10) 35%, transparent 36.2%, transparent 72%, rgba(225, 235, 252, 0.07) 73%, transparent 74%),
     var(--panel-texture-image),
-    linear-gradient(180deg, rgba(14, 24, 40, 0.72) 0%, rgba(8, 15, 27, 0.86) 38%, rgba(3, 8, 15, 0.96) 100%);
+    linear-gradient(180deg, rgba(198, 210, 232, 0.92) 0%, rgba(180, 195, 222, 0.94) 38%, rgba(160, 176, 207, 0.96) 100%);
   background-repeat: no-repeat;
   background-position: center;
   background-size: auto, auto, auto, 100% 100%, 100% 100%, cover, 100% 100%;
   box-shadow:
-    inset 0 1px 0 rgba(225, 237, 255, 0.18),
-    inset 0 0 0 1px rgba(120, 164, 236, 0.14),
-    inset 18px 0 38px rgba(86, 132, 220, 0.08),
-    inset 0 34px 58px rgba(176, 207, 255, 0.05),
-    inset 0 -30px 42px rgba(3, 7, 14, 0.42),
-    -14px 22px 38px rgba(0, 4, 10, 0.28);
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    inset 0 0 0 1px rgba(205, 222, 255, 0.24),
+    inset 18px 0 38px rgba(185, 210, 245, 0.14),
+    inset 0 34px 58px rgba(255, 255, 255, 0.14),
+    inset 0 -30px 42px rgba(105, 125, 160, 0.22),
+    -14px 22px 38px rgba(0, 4, 10, 0.20);
   -webkit-clip-path: var(--panel-clip-path);
   clip-path: var(--panel-clip-path);
   z-index: 0;
@@ -424,10 +424,11 @@ export default {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.015) 14%, rgba(5, 10, 18, 0.08) 36%, rgba(4, 9, 17, 0.28) 100%),
-    radial-gradient(circle at 88% 44%, rgba(146, 193, 255, 0.14), transparent 30%),
-    radial-gradient(circle at 76% 76%, rgba(79, 121, 204, 0.12), transparent 26%),
-    linear-gradient(228deg, rgba(255, 255, 255, 0.08), transparent 20%, transparent 72%, rgba(181, 214, 255, 0.06));
+    linear-gradient(to right, rgba(255, 255, 255, 0.42) 0%, rgba(242, 247, 255, 0.24) 10%, rgba(228, 238, 254, 0.08) 28%, transparent 50%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.08) 14%, rgba(10, 22, 44, 0.04) 36%, rgba(8, 18, 38, 0.12) 100%),
+    radial-gradient(circle at 88% 44%, rgba(205, 222, 255, 0.22), transparent 30%),
+    radial-gradient(circle at 76% 76%, rgba(172, 198, 238, 0.16), transparent 26%),
+    linear-gradient(228deg, rgba(255, 255, 255, 0.18), transparent 20%, transparent 72%, rgba(215, 230, 255, 0.12));
   -webkit-clip-path: var(--panel-clip-path);
   clip-path: var(--panel-clip-path);
   opacity: 0.96;
@@ -471,13 +472,13 @@ export default {
   justify-content: center;
   border-radius: 50%;
   background:
-    radial-gradient(circle at 30% 24%, rgba(208, 232, 255, 0.2), transparent 32%),
-    linear-gradient(180deg, rgba(33, 53, 86, 0.84), rgba(8, 14, 25, 0.92));
+    radial-gradient(circle at 30% 24%, rgba(255, 255, 255, 0.38), transparent 32%),
+    linear-gradient(180deg, rgba(215, 226, 248, 0.96), rgba(188, 202, 232, 0.98));
   box-shadow:
-    inset 0 0 0 2px rgba(223, 236, 255, 0.4),
-    inset 0 18px 24px rgba(178, 212, 255, 0.08),
-    inset 0 -18px 26px rgba(3, 8, 14, 0.36),
-    0 16px 30px rgba(1, 6, 14, 0.3);
+    inset 0 0 0 2px rgba(255, 255, 255, 0.62),
+    inset 0 18px 24px rgba(255, 255, 255, 0.28),
+    inset 0 -18px 26px rgba(130, 150, 195, 0.28),
+    0 16px 30px rgba(60, 90, 145, 0.22);
 }
 
 .hero-orb--button {
@@ -496,28 +497,28 @@ export default {
   justify-content: center;
   gap: 8px;
   background:
-    radial-gradient(circle at 34% 30%, rgba(194, 226, 255, 0.14), transparent 32%),
-    linear-gradient(180deg, rgba(19, 31, 51, 0.94), rgba(8, 14, 25, 0.98));
+    radial-gradient(circle at 34% 30%, rgba(255, 255, 255, 0.28), transparent 32%),
+    linear-gradient(180deg, rgba(200, 213, 238, 0.96), rgba(178, 193, 224, 0.99));
   box-shadow:
-    inset 0 0 0 2px rgba(218, 234, 255, 0.28);
+    inset 0 0 0 2px rgba(255, 255, 255, 0.50);
 }
 
 .hero-orb__accent {
   width: 40px;
   height: 6px;
   border-radius: 999px;
-  background: linear-gradient(90deg, rgba(255, 88, 116, 0.12), rgba(255, 126, 146, 1), rgba(255, 88, 116, 0.12));
-  box-shadow: 0 0 14px rgba(255, 110, 136, 0.34);
+  background: linear-gradient(90deg, rgba(185, 50, 80, 0.12), rgba(200, 65, 95, 0.88), rgba(185, 50, 80, 0.12));
+  box-shadow: 0 0 14px rgba(210, 80, 110, 0.26);
 }
 
 .hero-orb__mode {
   font-size: 24px;
   font-weight: 600;
   letter-spacing: 0.14em;
-  color: rgba(255, 225, 231, 0.96);
+  color: rgba(22, 38, 72, 0.96);
   text-shadow:
-    0 1px 12px rgba(1, 5, 12, 0.32),
-    0 0 16px rgba(255, 110, 136, 0.24);
+    0 1px 8px rgba(255, 255, 255, 0.28),
+    0 0 14px rgba(200, 80, 110, 0.16);
 }
 
 .hero-caption {
@@ -542,10 +543,10 @@ export default {
 
 .hero-caption__title {
   font-size: 20px;
-  color: rgba(255, 228, 234, 0.96);
+  color: rgba(22, 38, 68, 0.96);
   text-shadow:
-    0 2px 12px rgba(1, 5, 12, 0.32),
-    0 0 16px rgba(255, 110, 136, 0.16);
+    0 1px 8px rgba(255, 255, 255, 0.28),
+    0 0 12px rgba(195, 75, 105, 0.12);
 }
 
 .wing-center-actions {
@@ -566,9 +567,10 @@ export default {
   border: 0;
   border-radius: 24px;
   background: transparent;
-  color: rgba(245, 248, 252, 0.95);
+  color: rgba(22, 38, 68, 0.95);
   cursor: pointer;
   pointer-events: auto;
+  text-shadow: 0 1px 6px rgba(255, 255, 255, 0.22);
 }
 
 .orb-button__cap {
@@ -579,25 +581,25 @@ export default {
   justify-content: center;
   border-radius: 50%;
   background:
-    radial-gradient(circle at 28% 24%, rgba(244, 246, 252, 0.18), transparent 28%),
-    radial-gradient(circle at 74% 76%, rgba(120, 86, 104, 0.14), transparent 34%),
-    linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, transparent 18%, rgba(255, 255, 255, 0.04) 34%, transparent 48%, rgba(168, 140, 158, 0.08) 62%, transparent 74%, rgba(255, 255, 255, 0.04) 100%),
-    linear-gradient(34deg, transparent 0%, rgba(208, 188, 197, 0.08) 22%, transparent 38%, rgba(108, 86, 98, 0.1) 58%, transparent 74%, rgba(224, 211, 217, 0.05) 100%),
-    linear-gradient(180deg, rgba(54, 60, 74, 0.94), rgba(17, 21, 30, 0.98));
+    radial-gradient(circle at 28% 24%, rgba(255, 255, 255, 0.42), transparent 28%),
+    radial-gradient(circle at 74% 76%, rgba(145, 168, 215, 0.20), transparent 34%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.20) 0%, transparent 18%, rgba(255, 255, 255, 0.10) 34%, transparent 48%, rgba(195, 210, 238, 0.12) 62%, transparent 74%, rgba(255, 255, 255, 0.08) 100%),
+    linear-gradient(34deg, transparent 0%, rgba(218, 228, 248, 0.12) 22%, transparent 38%, rgba(168, 185, 222, 0.14) 58%, transparent 74%, rgba(228, 236, 252, 0.06) 100%),
+    linear-gradient(180deg, rgba(210, 220, 242, 0.96), rgba(185, 198, 228, 0.98));
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.16),
-    inset 0 0 0 2px rgba(223, 236, 255, 0.46),
-    inset 0 10px 20px rgba(196, 225, 255, 0.08),
-    0 14px 24px rgba(1, 6, 14, 0.26),
-    0 0 20px rgba(78, 166, 255, 0.14);
+    inset 0 1px 0 rgba(255, 255, 255, 0.58),
+    inset 0 0 0 2px rgba(255, 255, 255, 0.50),
+    inset 0 10px 20px rgba(255, 255, 255, 0.18),
+    0 14px 24px rgba(60, 85, 140, 0.18),
+    0 0 20px rgba(120, 155, 225, 0.10);
 }
 
 .orb-button__icon {
   font-size: 26px !important;
-  color: #72c7ff;
+  color: rgba(38, 72, 145, 0.94);
   text-shadow:
-    0 0 12px rgba(98, 193, 255, 0.56),
-    0 0 22px rgba(65, 146, 255, 0.28);
+    0 1px 6px rgba(255, 255, 255, 0.36),
+    0 0 14px rgba(90, 135, 230, 0.18);
 }
 
 .orb-button__label {
@@ -606,7 +608,7 @@ export default {
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--qs-text-secondary);
+  color: rgba(38, 60, 100, 0.82);
 }
 
 .wing-side-status {
@@ -621,12 +623,12 @@ export default {
   gap: 9px;
   border-radius: 26px;
   background:
-    linear-gradient(180deg, rgba(18, 31, 52, 0.86), rgba(7, 13, 25, 0.94));
+    linear-gradient(180deg, rgba(205, 216, 238, 0.90), rgba(182, 196, 225, 0.96));
   box-shadow:
-    inset 0 1px 0 rgba(220, 236, 255, 0.14),
-    inset 0 0 0 1px rgba(131, 171, 239, 0.12),
-    inset 0 -20px 30px rgba(4, 9, 16, 0.34),
-    0 14px 28px rgba(2, 8, 18, 0.24);
+    inset 0 1px 0 rgba(255, 255, 255, 0.50),
+    inset 0 0 0 1px rgba(190, 210, 248, 0.30),
+    inset 0 -20px 30px rgba(130, 150, 195, 0.18),
+    0 14px 28px rgba(60, 85, 140, 0.16);
   backdrop-filter: blur(16px);
   pointer-events: none;
 }
@@ -645,14 +647,14 @@ export default {
   border: 0;
   border-radius: 50%;
   background:
-    linear-gradient(180deg, rgba(33, 49, 76, 0.86), rgba(13, 22, 36, 0.94));
-  color: rgba(242, 246, 251, 0.9);
+    linear-gradient(180deg, rgba(212, 222, 244, 0.96), rgba(188, 202, 232, 0.98));
+  color: rgba(28, 48, 90, 0.92);
   cursor: pointer;
   box-shadow:
-    inset 0 1px 0 rgba(230, 240, 255, 0.24),
-    inset 0 0 0 1px rgba(122, 166, 239, 0.14),
-    inset 0 -10px 16px rgba(4, 9, 16, 0.28),
-    0 10px 18px rgba(2, 7, 16, 0.2);
+    inset 0 1px 0 rgba(255, 255, 255, 0.58),
+    inset 0 0 0 1px rgba(200, 215, 248, 0.38),
+    inset 0 -10px 16px rgba(130, 150, 195, 0.18),
+    0 10px 18px rgba(60, 85, 140, 0.16);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -684,7 +686,7 @@ export default {
 }
 
 .status-pill__icon--offline {
-  color: rgba(233, 239, 246, 0.74);
+  color: rgba(100, 125, 175, 0.72);
 }
 
 .status-pill--clickable:active {
@@ -734,13 +736,13 @@ export default {
   height: 110px;
   border: 0;
   background: transparent;
-  color: rgba(245, 248, 252, 0.95);
+  color: rgba(22, 38, 68, 0.95);
   cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.24);
+  text-shadow: 0 1px 6px rgba(255, 255, 255, 0.28);
   pointer-events: auto;
 }
 
@@ -752,22 +754,22 @@ export default {
   align-items: center;
   justify-content: center;
   background:
-    radial-gradient(circle at 28% 24%, rgba(244, 246, 252, 0.17), transparent 28%),
-    radial-gradient(circle at 74% 76%, rgba(121, 87, 105, 0.12), transparent 34%),
-    linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, transparent 20%, rgba(255, 255, 255, 0.04) 36%, transparent 50%, rgba(170, 142, 160, 0.08) 66%, transparent 78%, rgba(255, 255, 255, 0.04) 100%),
-    linear-gradient(32deg, transparent 0%, rgba(210, 190, 198, 0.08) 20%, transparent 34%, rgba(110, 88, 100, 0.1) 56%, transparent 72%, rgba(225, 212, 218, 0.05) 100%),
-    linear-gradient(180deg, rgba(48, 54, 66, 0.92), rgba(15, 19, 29, 0.98));
+    radial-gradient(circle at 28% 24%, rgba(255, 255, 255, 0.42), transparent 28%),
+    radial-gradient(circle at 74% 76%, rgba(145, 170, 220, 0.20), transparent 34%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.20) 0%, transparent 20%, rgba(255, 255, 255, 0.10) 36%, transparent 50%, rgba(195, 212, 240, 0.12) 66%, transparent 78%, rgba(255, 255, 255, 0.08) 100%),
+    linear-gradient(32deg, transparent 0%, rgba(218, 228, 248, 0.12) 20%, transparent 34%, rgba(168, 185, 222, 0.14) 56%, transparent 72%, rgba(228, 236, 252, 0.06) 100%),
+    linear-gradient(180deg, rgba(208, 219, 242, 0.94), rgba(182, 196, 228, 0.98));
   box-shadow:
-    inset 0 1px 0 rgba(235, 243, 255, 0.24),
-    inset 0 0 0 1px rgba(127, 169, 237, 0.16),
-    inset 0 -16px 24px rgba(3, 8, 14, 0.36),
-    0 14px 24px rgba(1, 6, 14, 0.26);
+    inset 0 1px 0 rgba(255, 255, 255, 0.58),
+    inset 0 0 0 1px rgba(200, 218, 252, 0.38),
+    inset 0 -16px 24px rgba(130, 150, 195, 0.20),
+    0 14px 24px rgba(60, 85, 140, 0.18);
 }
 
 .dual-pad__cap :deep(.v-icon) {
   font-size: 26px;
-  color: rgba(248, 251, 255, 0.98);
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.18);
+  color: rgba(28, 50, 95, 0.96);
+  text-shadow: 0 1px 6px rgba(255, 255, 255, 0.32);
 }
 
 .dual-pad__cap--small {
@@ -781,13 +783,13 @@ export default {
 
 .dual-pad__btn--active .dual-pad__cap {
   background:
-    radial-gradient(circle at 30% 26%, rgba(191, 225, 255, 0.28), transparent 34%),
-    linear-gradient(180deg, rgba(54, 86, 136, 0.94), rgba(23, 40, 66, 0.98));
+    radial-gradient(circle at 30% 26%, rgba(200, 225, 255, 0.45), transparent 34%),
+    linear-gradient(180deg, rgba(175, 200, 240, 0.96), rgba(148, 175, 225, 0.98));
   box-shadow:
-    inset 0 1px 0 rgba(245, 249, 255, 0.34),
-    inset 0 0 0 1px rgba(155, 205, 255, 0.3),
-    inset 0 -16px 24px rgba(7, 13, 24, 0.3),
-    0 12px 24px rgba(18, 42, 79, 0.28);
+    inset 0 1px 0 rgba(255, 255, 255, 0.62),
+    inset 0 0 0 1px rgba(160, 200, 255, 0.42),
+    inset 0 -16px 24px rgba(110, 140, 200, 0.22),
+    0 12px 24px rgba(60, 95, 165, 0.22);
 }
 
 .dual-pad__label {
@@ -795,7 +797,7 @@ export default {
   line-height: 1;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--qs-text-secondary);
+  color: rgba(38, 60, 100, 0.82);
 }
 
 .control-tag {

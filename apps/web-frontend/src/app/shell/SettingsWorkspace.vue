@@ -223,7 +223,7 @@ export default {
   font-size: 12px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: rgba(170, 188, 214, 0.82);
+  color: rgba(60, 88, 135, 0.82);
 }
 
 .settings-workspace__language-switch {
@@ -231,9 +231,9 @@ export default {
   gap: 8px;
   padding: 6px;
   border-radius: 999px;
-  background: linear-gradient(180deg, rgba(18, 30, 48, 0.82), rgba(8, 14, 25, 0.9));
-  border: 1px solid rgba(146, 176, 222, 0.16);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  background: linear-gradient(180deg, rgba(208, 220, 244, 0.88), rgba(185, 200, 232, 0.92));
+  border: 1px solid rgba(165, 192, 238, 0.36);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.52);
 }
 
 .settings-workspace__language-button {
@@ -244,14 +244,14 @@ export default {
   border: 0;
   border-radius: 999px;
   background: transparent;
-  color: rgba(198, 210, 227, 0.88);
+  color: rgba(45, 72, 118, 0.88);
   cursor: pointer;
   transition: background 0.18s ease, color 0.18s ease;
 }
 
 .settings-workspace__language-button--active {
-  background: rgba(69, 120, 197, 0.34);
-  color: rgba(244, 248, 252, 0.96);
+  background: rgba(148, 185, 248, 0.40);
+  color: rgba(18, 38, 78, 0.96);
 }
 
 .settings-workspace__status {
@@ -268,20 +268,20 @@ export default {
   gap: 8px;
   padding: 10px 14px;
   border-radius: 999px;
-  background: linear-gradient(180deg, rgba(18, 30, 48, 0.82), rgba(8, 14, 25, 0.9));
-  border: 1px solid rgba(146, 176, 222, 0.16);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  background: linear-gradient(180deg, rgba(208, 220, 244, 0.90), rgba(185, 200, 232, 0.94));
+  border: 1px solid rgba(165, 192, 238, 0.36);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.52);
   backdrop-filter: blur(14px);
   font-size: 13px;
 }
 
 .settings-workspace__status-chip strong {
   font-weight: 600;
-  color: rgba(245, 249, 255, 0.94);
+  color: rgba(18, 38, 78, 0.94);
 }
 
 .settings-workspace__status-chip span {
-  color: rgba(198, 210, 227, 0.88);
+  color: rgba(45, 72, 118, 0.88);
 }
 
 .settings-workspace__panel {
@@ -289,14 +289,14 @@ export default {
   min-height: 0;
   padding: 24px 26px 26px;
   border-radius: 34px;
-  border: 1px solid rgba(157, 185, 228, 0.16);
+  border: 1px solid rgba(165, 192, 238, 0.36);
   background:
-    radial-gradient(circle at 50% 0%, rgba(113, 163, 247, 0.08), transparent 22%),
-    linear-gradient(180deg, rgba(16, 26, 44, 0.96) 0%, rgba(9, 16, 29, 0.94) 100%);
+    radial-gradient(circle at 50% 0%, rgba(200, 220, 255, 0.18), transparent 22%),
+    linear-gradient(180deg, rgba(205, 218, 242, 0.94) 0%, rgba(182, 198, 228, 0.96) 100%);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.08),
-    inset 0 -24px 38px rgba(3, 8, 14, 0.26),
-    0 30px 70px rgba(0, 0, 0, 0.26);
+    inset 0 1px 0 rgba(255, 255, 255, 0.52),
+    inset 0 -24px 38px rgba(130, 155, 205, 0.14),
+    0 30px 70px rgba(60, 85, 140, 0.20);
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -330,7 +330,7 @@ export default {
   font-size: 12px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(156, 176, 209, 0.72);
+  color: rgba(72, 100, 150, 0.72);
 }
 
 .settings-workspace__grid {
@@ -346,30 +346,30 @@ export default {
 .settings-workspace__card {
   min-height: 116px;
   padding: 18px 18px 16px;
-  border: 1px solid rgba(145, 175, 221, 0.14);
+  border: 1px solid rgba(165, 192, 238, 0.38);
   border-radius: 22px;
   background:
-    linear-gradient(180deg, rgba(29, 46, 74, 0.92) 0%, rgba(15, 24, 39, 0.94) 100%);
-  color: rgba(245, 248, 252, 0.96);
+    linear-gradient(180deg, rgba(218, 228, 248, 0.94) 0%, rgba(195, 210, 238, 0.96) 100%);
+  color: rgba(22, 42, 82, 0.96);
   text-align: left;
   cursor: pointer;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.08),
-    inset 0 -14px 24px rgba(3, 8, 14, 0.18);
+    inset 0 1px 0 rgba(255, 255, 255, 0.58),
+    inset 0 -14px 24px rgba(130, 155, 205, 0.14);
   transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
 }
 
 .settings-workspace__card:hover {
   transform: translateY(-2px);
-  border-color: rgba(155, 197, 255, 0.3);
-  box-shadow: 0 18px 32px rgba(4, 11, 20, 0.22);
+  border-color: rgba(130, 175, 248, 0.50);
+  box-shadow: 0 18px 32px rgba(60, 85, 140, 0.18);
 }
 
 .settings-workspace__card--active {
-  border-color: rgba(126, 179, 255, 0.44);
+  border-color: rgba(100, 158, 248, 0.58);
   box-shadow:
-    inset 0 0 0 1px rgba(126, 179, 255, 0.18),
-    0 18px 36px rgba(16, 34, 66, 0.3);
+    inset 0 0 0 1px rgba(120, 170, 255, 0.28),
+    0 18px 36px rgba(60, 95, 165, 0.22);
 }
 
 .settings-workspace__card--compact {
@@ -390,11 +390,11 @@ export default {
   align-items: center;
   justify-content: center;
   border-radius: 14px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(96, 134, 201, 0.12));
-  color: rgba(214, 231, 255, 0.96);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(175, 200, 240, 0.28));
+  color: rgba(35, 68, 140, 0.96);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.08),
-    0 10px 16px rgba(4, 10, 18, 0.16);
+    inset 0 1px 0 rgba(255, 255, 255, 0.58),
+    0 10px 16px rgba(60, 85, 140, 0.12);
 }
 
 .settings-workspace__card-title {
@@ -407,7 +407,7 @@ export default {
   display: block;
   font-size: 13px;
   line-height: 1.5;
-  color: rgba(201, 213, 228, 0.86);
+  color: rgba(52, 80, 128, 0.82);
 }
 
 @media (max-width: 1400px) {

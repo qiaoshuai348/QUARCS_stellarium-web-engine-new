@@ -88,6 +88,13 @@
         </div>
 
         <div class="app-shell__overlay-layer" :class="{ 'app-shell__overlay-layer--hidden': legacyOverlayOpen }">
+          <div
+            v-if="currentMode === 'mount' && !isSettingsMode"
+            class="app-shell__mount-brand"
+          >
+            <span class="app-shell__mount-brand-text">QUARCS</span>
+            <span class="app-shell__mount-brand-sub">Sky + Mount Control</span>
+          </div>
           <ChartComponent
             v-show="guidingPanelVisible"
             ref="guidingPanel"
@@ -1535,15 +1542,46 @@ export default {
 }
 
 .app-shell__overlay-panel--guiding {
-  transform: translateY(-44px);
+  transform: translateY(-12px);
 }
 
 .app-shell__overlay-panel--capture {
-  transform: translateY(-34px);
+  transform: translateY(-10px);
 }
 
 .app-shell__overlay-panel--focus {
-  transform: translateY(-22px);
+  transform: translateY(-8px);
+}
+
+.app-shell__mount-brand {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  pointer-events: none;
+  z-index: 1;
+  white-space: nowrap;
+}
+
+.app-shell__mount-brand-text {
+  font-size: 68px;
+  font-weight: 800;
+  letter-spacing: 0.24em;
+  color: rgba(155, 175, 215, 0.28);
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.app-shell__mount-brand-sub {
+  font-size: 12px;
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  color: rgba(138, 162, 205, 0.22);
+  font-weight: 500;
 }
 
 .app-shell__aux-layer {

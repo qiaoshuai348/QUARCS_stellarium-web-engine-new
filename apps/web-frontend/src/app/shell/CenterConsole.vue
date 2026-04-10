@@ -81,14 +81,15 @@ export default {
   height: 100%;
   pointer-events: none;
   color: var(--qs-text-primary);
-  padding: 22px 12px 0;
+  padding: 22px 0 0;
+  overflow: visible;
 }
 
 .center-console__metrics {
   display: flex;
   justify-content: space-between;
   gap: 24px;
-  margin-top: 0;
+  margin: 0 -52px;
 }
 
 .metrics-card {

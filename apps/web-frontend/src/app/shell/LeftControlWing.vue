@@ -419,23 +419,24 @@ export default {
   position: absolute;
   inset: 0;
   background-image:
-    radial-gradient(circle at 18% 12%, rgba(245, 250, 255, 0.60), transparent 24%),
-    radial-gradient(circle at 24% 38%, rgba(205, 220, 248, 0.40), transparent 38%),
-    radial-gradient(circle at 18% 72%, rgba(168, 185, 215, 0.30), transparent 28%),
-    linear-gradient(118deg, transparent 0%, rgba(255, 255, 255, 0.14) 14%, transparent 15.5%, transparent 54%, rgba(255, 255, 255, 0.10) 55.5%, transparent 57%),
-    linear-gradient(154deg, transparent 0%, transparent 34%, rgba(225, 235, 252, 0.10) 35%, transparent 36.2%, transparent 72%, rgba(225, 235, 252, 0.07) 73%, transparent 74%),
+    radial-gradient(circle at 16% 7%, rgba(255, 255, 255, 0.88), transparent 18%),
+    radial-gradient(circle at 68% 5%, rgba(255, 255, 255, 0.55), transparent 15%),
+    radial-gradient(circle at 22% 36%, rgba(225, 240, 255, 0.44), transparent 32%),
+    radial-gradient(circle at 16% 74%, rgba(195, 212, 240, 0.24), transparent 22%),
+    linear-gradient(118deg, transparent 0%, rgba(255, 255, 255, 0.22) 14%, transparent 15.5%, transparent 54%, rgba(255, 255, 255, 0.14) 55.5%, transparent 57%),
+    linear-gradient(154deg, transparent 0%, transparent 34%, rgba(235, 245, 255, 0.14) 35%, transparent 36.2%, transparent 72%, rgba(235, 245, 255, 0.08) 73%, transparent 74%),
     var(--panel-texture-image),
-    linear-gradient(180deg, rgba(198, 210, 232, 0.92) 0%, rgba(180, 195, 222, 0.94) 38%, rgba(160, 176, 207, 0.96) 100%);
+    linear-gradient(180deg, rgba(245, 250, 255, 0.99) 0%, rgba(222, 233, 252, 0.99) 22%, rgba(198, 212, 238, 0.99) 52%, rgba(168, 184, 215, 0.99) 78%, rgba(148, 166, 200, 0.99) 100%);
   background-repeat: no-repeat;
   background-position: center;
-  background-size: auto, auto, auto, 100% 100%, 100% 100%, cover, 100% 100%;
+  background-size: auto, auto, auto, auto, 100% 100%, 100% 100%, cover, 100% 100%;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.55),
-    inset 0 0 0 1px rgba(205, 222, 255, 0.24),
-    inset -18px 0 38px rgba(185, 210, 245, 0.14),
-    inset 0 34px 58px rgba(255, 255, 255, 0.14),
-    inset 0 -30px 42px rgba(105, 125, 160, 0.22),
-    14px 22px 38px rgba(0, 4, 10, 0.20);
+    inset 0 3px 0 rgba(255, 255, 255, 0.90),
+    inset 0 0 0 1px rgba(215, 232, 255, 0.32),
+    inset -18px 0 38px rgba(200, 222, 255, 0.18),
+    inset 0 36px 64px rgba(255, 255, 255, 0.26),
+    inset 0 -48px 68px rgba(70, 92, 138, 0.42),
+    14px 28px 56px rgba(0, 4, 10, 0.32);
   -webkit-clip-path: var(--panel-clip-path);
   clip-path: var(--panel-clip-path);
   z-index: 0;
@@ -567,15 +568,16 @@ export default {
   justify-content: center;
   border-radius: 50%;
   background:
-    radial-gradient(circle at 28% 22%, rgba(255, 255, 255, 0.38), transparent 30%),
-    radial-gradient(circle at 50% 18%, rgba(200, 220, 255, 0.22), transparent 38%),
-    linear-gradient(180deg, rgba(215, 226, 248, 0.96), rgba(188, 202, 232, 0.98));
+    radial-gradient(circle at 30% 18%, rgba(255, 255, 255, 0.72), transparent 26%),
+    radial-gradient(circle at 68% 75%, rgba(140, 165, 215, 0.22), transparent 30%),
+    linear-gradient(180deg, rgba(245, 250, 255, 0.99) 0%, rgba(215, 228, 252, 0.99) 46%, rgba(182, 198, 232, 0.99) 100%);
   box-shadow:
-    inset 0 0 0 2px rgba(255, 255, 255, 0.62),
-    inset 0 18px 24px rgba(255, 255, 255, 0.28),
-    inset 0 -18px 26px rgba(130, 150, 195, 0.28),
-    0 16px 30px rgba(60, 90, 145, 0.22),
-    0 0 28px rgba(130, 165, 230, 0.18);
+    inset 0 3px 0 rgba(255, 255, 255, 0.92),
+    inset 0 0 0 2px rgba(255, 255, 255, 0.70),
+    inset 0 22px 32px rgba(255, 255, 255, 0.32),
+    inset 0 -22px 32px rgba(90, 115, 170, 0.36),
+    0 20px 40px rgba(50, 72, 130, 0.30),
+    0 0 32px rgba(120, 155, 230, 0.20);
   z-index: 2;
 }
 
@@ -595,12 +597,14 @@ export default {
   justify-content: center;
   gap: 8px;
   background:
-    radial-gradient(circle at 34% 30%, rgba(255, 255, 255, 0.28), transparent 32%),
-    radial-gradient(circle at 50% 14%, rgba(200, 220, 255, 0.18), transparent 34%),
-    linear-gradient(180deg, rgba(200, 213, 238, 0.96), rgba(178, 193, 224, 0.99));
+    radial-gradient(circle at 32% 26%, rgba(255, 255, 255, 0.56), transparent 28%),
+    radial-gradient(circle at 50% 12%, rgba(210, 228, 255, 0.28), transparent 32%),
+    linear-gradient(180deg, rgba(235, 244, 255, 0.98) 0%, rgba(205, 220, 248, 0.99) 50%, rgba(178, 196, 230, 0.99) 100%);
   box-shadow:
-    inset 0 0 0 2px rgba(255, 255, 255, 0.50),
-    inset 0 0 24px rgba(160, 190, 240, 0.14);
+    inset 0 2px 0 rgba(255, 255, 255, 0.85),
+    inset 0 0 0 2px rgba(255, 255, 255, 0.60),
+    inset 0 -14px 20px rgba(110, 135, 188, 0.22),
+    inset 0 0 28px rgba(170, 200, 248, 0.18);
 }
 
 .hero-orb__accent {
@@ -678,17 +682,16 @@ export default {
   justify-content: center;
   border-radius: 50%;
   background:
-    radial-gradient(circle at 28% 24%, rgba(255, 255, 255, 0.42), transparent 28%),
-    radial-gradient(circle at 70% 72%, rgba(140, 165, 215, 0.22), transparent 34%),
-    linear-gradient(145deg, rgba(255, 255, 255, 0.18) 0%, transparent 18%, rgba(255, 255, 255, 0.10) 34%, transparent 48%, rgba(195, 210, 238, 0.12) 62%, transparent 74%, rgba(255, 255, 255, 0.08) 100%),
-    linear-gradient(35deg, transparent 0%, rgba(215, 225, 245, 0.12) 22%, transparent 38%, rgba(170, 188, 222, 0.14) 58%, transparent 74%, rgba(230, 238, 252, 0.08) 100%),
-    linear-gradient(180deg, rgba(210, 220, 242, 0.96), rgba(185, 198, 228, 0.98));
+    radial-gradient(circle at 30% 22%, rgba(255, 255, 255, 0.72), transparent 26%),
+    radial-gradient(circle at 68% 75%, rgba(135, 160, 212, 0.22), transparent 32%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.28) 0%, transparent 18%, rgba(255, 255, 255, 0.14) 34%, transparent 50%, rgba(195, 210, 238, 0.14) 66%, transparent 78%),
+    linear-gradient(180deg, rgba(242, 248, 255, 0.99) 0%, rgba(215, 228, 252, 0.99) 46%, rgba(182, 198, 232, 0.99) 100%);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.58),
-    inset 0 0 0 2px rgba(255, 255, 255, 0.50),
-    inset 0 10px 20px rgba(255, 255, 255, 0.18),
-    0 14px 24px rgba(60, 85, 140, 0.18),
-    0 0 20px rgba(120, 155, 225, 0.12);
+    inset 0 3px 0 rgba(255, 255, 255, 0.92),
+    inset 0 0 0 2px rgba(255, 255, 255, 0.60),
+    inset 0 12px 22px rgba(255, 255, 255, 0.26),
+    0 8px 20px rgba(50, 72, 125, 0.26),
+    0 0 22px rgba(110, 145, 220, 0.14);
   font-size: 26px;
 }
 
@@ -759,16 +762,16 @@ export default {
   align-items: center;
   justify-content: center;
   background:
-    radial-gradient(circle at 28% 24%, rgba(255, 255, 255, 0.42), transparent 28%),
-    radial-gradient(circle at 72% 74%, rgba(145, 170, 220, 0.20), transparent 34%),
-    linear-gradient(145deg, rgba(255, 255, 255, 0.20) 0%, transparent 20%, rgba(255, 255, 255, 0.10) 36%, transparent 50%, rgba(195, 212, 240, 0.12) 66%, transparent 78%, rgba(255, 255, 255, 0.08) 100%),
-    linear-gradient(32deg, transparent 0%, rgba(218, 228, 248, 0.12) 20%, transparent 34%, rgba(168, 185, 222, 0.14) 56%, transparent 72%, rgba(228, 236, 252, 0.06) 100%),
-    linear-gradient(180deg, rgba(208, 219, 242, 0.94), rgba(182, 196, 228, 0.98));
+    radial-gradient(circle at 30% 22%, rgba(255, 255, 255, 0.70), transparent 26%),
+    radial-gradient(circle at 70% 76%, rgba(140, 165, 215, 0.22), transparent 32%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.28) 0%, transparent 18%, rgba(255, 255, 255, 0.14) 34%, transparent 50%, rgba(195, 212, 240, 0.14) 66%, transparent 78%),
+    linear-gradient(180deg, rgba(242, 248, 255, 0.99) 0%, rgba(215, 228, 252, 0.99) 46%, rgba(182, 198, 232, 0.99) 100%);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.58),
-    inset 0 0 0 1px rgba(200, 218, 252, 0.38),
-    inset 0 -16px 24px rgba(130, 150, 195, 0.20),
-    0 14px 24px rgba(60, 85, 140, 0.18);
+    inset 0 3px 0 rgba(255, 255, 255, 0.92),
+    inset 0 0 0 1px rgba(205, 222, 255, 0.44),
+    inset 0 -18px 28px rgba(110, 135, 188, 0.28),
+    0 6px 18px rgba(50, 72, 125, 0.28),
+    0 2px 4px rgba(50, 72, 125, 0.16);
 }
 
 .dual-pad__cap :deep(.v-icon) {
@@ -788,13 +791,13 @@ export default {
 
 .dual-pad__btn--active .dual-pad__cap {
   background:
-    radial-gradient(circle at 30% 26%, rgba(200, 225, 255, 0.45), transparent 34%),
-    linear-gradient(180deg, rgba(175, 200, 240, 0.96), rgba(148, 175, 225, 0.98));
+    radial-gradient(circle at 32% 24%, rgba(215, 235, 255, 0.65), transparent 30%),
+    linear-gradient(180deg, rgba(195, 218, 252, 0.99) 0%, rgba(158, 185, 238, 0.99) 50%, rgba(130, 160, 220, 0.99) 100%);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.62),
-    inset 0 0 0 1px rgba(160, 200, 255, 0.42),
-    inset 0 -16px 24px rgba(110, 140, 200, 0.22),
-    0 12px 24px rgba(60, 95, 165, 0.22);
+    inset 0 3px 0 rgba(255, 255, 255, 0.88),
+    inset 0 0 0 1px rgba(165, 205, 255, 0.52),
+    inset 0 -18px 28px rgba(90, 125, 195, 0.32),
+    0 8px 20px rgba(50, 85, 165, 0.30);
 }
 
 .dual-pad__label {
